@@ -27,11 +27,11 @@ public class Main extends Application {
 					if(j % 2 == 0) {
 						cell[i][j].setStyle("-fx-background-color: white;");
 					} else {
-						cell[i][j].setStyle("-fx-background-color: black;");
+						cell[i][j].setStyle("-fx-background-color: DarkSeaGreen;");
 					}
 				} else {
 					if(j % 2 == 0) {
-						cell[i][j].setStyle("-fx-background-color: black;");
+						cell[i][j].setStyle("-fx-background-color: DarkSeaGreen;");
 					} else {
 						cell[i][j].setStyle("-fx-background-color: white;");
 					}

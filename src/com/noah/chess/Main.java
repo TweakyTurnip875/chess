@@ -19,14 +19,14 @@ public class Main extends Application {
 		   rook_w = "images/white/rook_w.png",
 		   knight_w = "images/white/knight_w.png",
 		   bishop_w = "images/white/bishop_w.png",
-		   queen_w = "images/white/qween_w.png",
+		   queen_w = "images/white/queen_w.png",
 		   king_w = "images/white/king_w.png";
 	
 	String pawn_b = "images/black/pawn_b.png",
 		   rook_b = "images/black/rook_b.png",
 		   knight_b = "images/black/knight_b.png",
 		   bishop_b = "images/black/bishop_b.png",
-		   queen_b = "images/black/qween_b.png",
+		   queen_b = "images/black/queen_b.png",
 		   king_b = "images/black/king_b.png";
 	
 	private char turn = 'W';
@@ -107,19 +107,65 @@ public class Main extends Application {
 		
 		public void handleToken(String token) throws FileNotFoundException {
 			tV = new ImageView();
-			tV.setFitHeight(50);
-			tV.setFitWidth(30);
-			tV.setTranslateX(15);
-			tV.setTranslateY(5);
+			tV.setFitHeight(45);
+			tV.setFitWidth(25);
+			tV.setTranslateX(18);
+			tV.setTranslateY(7);
 			
 			if(this.token.equals(pawn_w)) {
 				t = new Image("File:" + pawn_w);
+				
+				tV.setFitHeight(45);
+				tV.setFitWidth(40);
+				tV.setTranslateX(10);
+				tV.setTranslateY(7);
 				
 				tV.setImage(t);
 				
 				getChildren().add(tV);
 			} else if(this.token.equals(pawn_b)) {
 				t = new Image("File:" + pawn_b);
+				
+				tV.setFitHeight(45);
+				tV.setFitWidth(40);
+				tV.setTranslateX(10);
+				tV.setTranslateY(7);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			}
+			
+			if(this.token.equals(rook_w)) {
+				t = new Image("File:" + rook_w);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			} else if(this.token.equals(rook_b)) {
+				t = new Image("File:" + rook_b);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			}
+			
+			if(this.token.equals(knight_w)) {
+				t = new Image("File:" + knight_w);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			} else if(this.token.equals(knight_b)) {
+				t = new Image("File:" + knight_b);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			}
+			
+			if(this.token.equals(bishop_w)) {
+				t = new Image("File:" + bishop_w);
 				
 				tV.setImage(t);
 				

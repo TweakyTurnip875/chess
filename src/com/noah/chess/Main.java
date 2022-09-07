@@ -187,6 +187,30 @@ public class Main extends Application {
 				
 				getChildren().add(tV);
 			}
+			
+			if(this.token.equals(king_w)) {
+				t = new Image("File:" + king_w);
+				
+				tV.setFitHeight(55);
+				tV.setFitWidth(50);
+				tV.setTranslateX(7);
+				tV.setTranslateY(5);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			} else if(this.token.equals(king_b)) {
+				t = new Image("File:" + king_b);
+				
+				tV.setFitHeight(55);
+				tV.setFitWidth(50);
+				tV.setTranslateX(7);
+				tV.setTranslateY(5);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			}
 		}
 		public String getToken() {
 			return token;

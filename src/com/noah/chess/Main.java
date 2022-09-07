@@ -96,8 +96,8 @@ public class Main extends Application {
 		stage.show();
 	}
 	
-	public class Cell extends Pane {
-		private String token = " ";
+	public class Cell<E> extends Pane {
+		private E token;
 		private Image t;
 		private ImageView tV;
 		
@@ -105,7 +105,7 @@ public class Main extends Application {
 			this.setPrefSize(2000, 2000);
 		}
 		
-		public void handleToken(String token) throws FileNotFoundException {
+		public void handleToken(E token) throws FileNotFoundException {
 			tV = new ImageView();
 			tV.setFitHeight(45);
 			tV.setFitWidth(25);
@@ -211,11 +211,35 @@ public class Main extends Application {
 				
 				getChildren().add(tV);
 			}
+			
+			if(this.token.equals(queen_w)) {
+				t = new Image("File:" + queen_w);
+				
+				tV.setFitHeight(55);
+				tV.setFitWidth(50);
+				tV.setTranslateX(7);
+				tV.setTranslateY(5);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			} else if(this.token.equals(queen_b)) {
+				t = new Image("File:" + queen_b);
+				
+				tV.setFitHeight(55);
+				tV.setFitWidth(50);
+				tV.setTranslateX(7);
+				tV.setTranslateY(5);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			}
 		}
-		public String getToken() {
+		public E getToken() {
 			return token;
 		}
-		public void setToken(String token) throws FileNotFoundException {
+		public void setToken(E token) throws FileNotFoundException {
 			this.token = token;
 			
 			handleToken(token);

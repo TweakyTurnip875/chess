@@ -45,15 +45,15 @@ public class Main extends Application {
 				
 				if(i % 2 == 0) {
 					if(j % 2 == 0) {
-						cell[i][j].setStyle("-fx-background-color: white;");
+						cell[i][j].setStyle("-fx-background-color: #b5b5b3;");
 					} else {
-						cell[i][j].setStyle("-fx-background-color: DarkSeaGreen;");
+						cell[i][j].setStyle("-fx-background-color: #757573;");
 					}
 				} else {
 					if(j % 2 == 0) {
-						cell[i][j].setStyle("-fx-background-color: DarkSeaGreen;");
+						cell[i][j].setStyle("-fx-background-color: #757573;");
 					} else {
-						cell[i][j].setStyle("-fx-background-color: white;");
+						cell[i][j].setStyle("-fx-background-color: #b5b5b3;");
 					}
 				}
 				
@@ -166,6 +166,22 @@ public class Main extends Application {
 			
 			if(this.token.equals(bishop_w)) {
 				t = new Image("File:" + bishop_w);
+				
+				tV.setFitHeight(45);
+				tV.setFitWidth(40);
+				tV.setTranslateX(10);
+				tV.setTranslateY(7);
+				
+				tV.setImage(t);
+				
+				getChildren().add(tV);
+			} else if(this.token.equals(bishop_b)) {
+				t = new Image("File:" + bishop_b);
+				
+				tV.setFitHeight(45);
+				tV.setFitWidth(40);
+				tV.setTranslateX(10);
+				tV.setTranslateY(7);
 				
 				tV.setImage(t);
 				

@@ -58,32 +58,32 @@ public class Main extends Application {
 				}
 				
 				if(j == 1) {
-					cell[i][j].setToken(pawn_b);
+					cell[i][j].setToken(new PawnW());
 				} else if((i == 0 && j == 0) || (i == 7 && j == 0)) {
-					cell[i][j].setToken(rook_b);
+					cell[i][j].setToken(new PawnW());
 				} else if((i == 1 && j == 0) || (i == 6 && j == 0)) {
-					cell[i][j].setToken(knight_b);
+					cell[i][j].setToken(new PawnW());
 				} else if((i == 2 && j == 0) || (i == 5 && j == 0)) {
-					cell[i][j].setToken(bishop_b);
+					cell[i][j].setToken(new PawnW());
 				} else if(i == 3 && j == 0) {
-					cell[i][j].setToken(queen_b);
+					cell[i][j].setToken(new PawnW());
 				} else if(i == 4 && j == 0) {
-					cell[i][j].setToken(king_b);
+					cell[i][j].setToken(new PawnW());
 				}
 				
 				
 				if(j == 6) {
-					cell[i][j].setToken(pawn_w);
+					cell[i][j].setToken(new PawnW());
 				} else if((i == 0 && j == 7) || (i == 7 && j == 7)) {
-					cell[i][j].setToken(rook_w);
+					cell[i][j].setToken(new PawnW());
 				} else if((i == 1 && j == 7) || (i == 6 && j == 7)) {
-					cell[i][j].setToken(knight_w);
+					cell[i][j].setToken(new PawnW());
 				} else if((i == 2 && j == 7) || (i == 5 && j == 7)) {
-					cell[i][j].setToken(bishop_w);
+					cell[i][j].setToken(new PawnW());
 				} else if(i == 3 && j == 7) {
-					cell[i][j].setToken(queen_w);
+					cell[i][j].setToken(new PawnW());
 				} else if(i == 4 && j == 7) {
-					cell[i][j].setToken(king_w);
+					cell[i][j].setToken(new PawnW());
 				}
 			}
 		}
@@ -105,148 +105,58 @@ public class Main extends Application {
 			this.setPrefSize(2000, 2000);
 		}
 		
-		public void handleToken(E token) throws FileNotFoundException {
-			tV = new ImageView();
-			tV.setFitHeight(45);
-			tV.setFitWidth(25);
-			tV.setTranslateX(18);
-			tV.setTranslateY(7);
-			
-			if(this.token.equals(pawn_w)) {
-				t = new Image("File:" + pawn_w);
-				
-				tV.setFitHeight(45);
-				tV.setFitWidth(40);
-				tV.setTranslateX(10);
-				tV.setTranslateY(7);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			} else if(this.token.equals(pawn_b)) {
-				t = new Image("File:" + pawn_b);
-				
-				tV.setFitHeight(45);
-				tV.setFitWidth(40);
-				tV.setTranslateX(10);
-				tV.setTranslateY(7);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			}
-			
-			if(this.token.equals(rook_w)) {
-				t = new Image("File:" + rook_w);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			} else if(this.token.equals(rook_b)) {
-				t = new Image("File:" + rook_b);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			}
-			
-			if(this.token.equals(knight_w)) {
-				t = new Image("File:" + knight_w);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			} else if(this.token.equals(knight_b)) {
-				t = new Image("File:" + knight_b);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			}
-			
-			if(this.token.equals(bishop_w)) {
-				t = new Image("File:" + bishop_w);
-				
-				tV.setFitHeight(45);
-				tV.setFitWidth(40);
-				tV.setTranslateX(10);
-				tV.setTranslateY(7);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			} else if(this.token.equals(bishop_b)) {
-				t = new Image("File:" + bishop_b);
-				
-				tV.setFitHeight(45);
-				tV.setFitWidth(40);
-				tV.setTranslateX(10);
-				tV.setTranslateY(7);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			}
-			
-			if(this.token.equals(king_w)) {
-				t = new Image("File:" + king_w);
-				
-				tV.setFitHeight(55);
-				tV.setFitWidth(50);
-				tV.setTranslateX(7);
-				tV.setTranslateY(5);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			} else if(this.token.equals(king_b)) {
-				t = new Image("File:" + king_b);
-				
-				tV.setFitHeight(55);
-				tV.setFitWidth(50);
-				tV.setTranslateX(7);
-				tV.setTranslateY(5);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			}
-			
-			if(this.token.equals(queen_w)) {
-				t = new Image("File:" + queen_w);
-				
-				tV.setFitHeight(55);
-				tV.setFitWidth(50);
-				tV.setTranslateX(7);
-				tV.setTranslateY(5);
-				
-				tV.setImage(t);
-				
-				getChildren().add(tV);
-			} else if(this.token.equals(queen_b)) {
-				t = new Image("File:" + queen_b);
-				
-				tV.setFitHeight(55);
-				tV.setFitWidth(50);
-				tV.setTranslateX(7);
-				tV.setTranslateY(5);
-				
-				tV.setImage(t);
+		public void handleToken() throws FileNotFoundException {
+			if(((PawnW) this.token).getImageString().equals(pawn_w)) {
+				t = new Image("File:" + ((PawnW) this.token).getImageString());
+				tV = ((PawnW) this.token).getImageSettings();
 				
 				getChildren().add(tV);
 			}
 		}
+		
 		public E getToken() {
 			return token;
 		}
 		public void setToken(E token) throws FileNotFoundException {
 			this.token = token;
 			
-			handleToken(token);
+			this.handleToken();
+			
+			System.out.println(((PawnW) this.token).getImageString().equals(pawn_w));
 		}
 
 	}
+
 	
+	public class PawnW {
+		private String token;
+		private Image t;
+		private ImageView tV;
+		
+		public PawnW() {
+			token = pawn_w;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(45);
+			tV.setFitWidth(40);
+			tV.setTranslateX(10);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public ImageView getImageSettings() {
+			return tV;
+		}
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}

@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.input.*;
+import javafx.event.*;
 
 public class Main extends Application {
 	
@@ -96,6 +98,9 @@ public class Main extends Application {
 		stage.show();
 	}
 	
+	
+
+	
 	public class Cell<E> extends Pane {
 		private E token;
 		private Image t;
@@ -103,8 +108,12 @@ public class Main extends Application {
 		
 		public Cell() {
 			this.setPrefSize(2000, 2000);
+			this.setOnMouseClicked(e -> handleSelection());
 		}
-		
+		public void handleSelection() {
+			System.out.println(this.token);
+			
+		}
 		public void handleToken() throws FileNotFoundException {
 			if(((PawnW) this.token).getImageString().equals(pawn_w)) {
 				t = new Image("File:" + ((PawnW) this.token).getImageString());
@@ -122,7 +131,6 @@ public class Main extends Application {
 			
 			this.handleToken();
 			
-			System.out.println(((PawnW) this.token).getImageString().equals(pawn_w));
 		}
 
 	}
@@ -145,6 +153,8 @@ public class Main extends Application {
 			tV.setTranslateY(7);
 			
 			tV.setImage(t);
+			
+			
 		}
 		
 		public Image getImage() {
@@ -156,6 +166,7 @@ public class Main extends Application {
 		public ImageView getImageSettings() {
 			return tV;
 		}
+
 	}
 	public static void main(String[] args) {
 		launch(args);

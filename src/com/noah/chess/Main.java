@@ -60,17 +60,17 @@ public class Main extends Application {
 				}
 				
 				if(j == 1) {
-					cell[i][j].setToken(new PawnW(i, j));
+					cell[i][j].setToken(new PawnB(i, j));
 				} else if((i == 0 && j == 0) || (i == 7 && j == 0)) {
-					cell[i][j].setToken(new PawnW(i, j));
+					cell[i][j].setToken(new PawnB(i, j));
 				} else if((i == 1 && j == 0) || (i == 6 && j == 0)) {
-					cell[i][j].setToken(new PawnW(i, j));
+					cell[i][j].setToken(new PawnB(i, j));
 				} else if((i == 2 && j == 0) || (i == 5 && j == 0)) {
-					cell[i][j].setToken(new PawnW(i, j));
+					cell[i][j].setToken(new PawnB(i, j));
 				} else if(i == 3 && j == 0) {
-					cell[i][j].setToken(new PawnW(i, j));
+					cell[i][j].setToken(new PawnB(i, j));
 				} else if(i == 4 && j == 0) {
-					cell[i][j].setToken(new PawnW(i, j));
+					cell[i][j].setToken(new PawnB(i, j));
 				}
 				
 				
@@ -118,12 +118,19 @@ public class Main extends Application {
 			}
 		}
 		public void handleToken() throws FileNotFoundException {
-			if(((PawnW) this.token).getImageString().equals(pawn_w)) {
+			if(((ChessPiece) this.token).getImageString().equals(pawn_b)) {
+				t = new Image("File:" + ((PawnB) this.token).getImageString());
+				tV = ((PawnB) this.token).getImageSettings();
+				
+				getChildren().add(tV);
+			}
+			if(((ChessPiece) this.token).getImageString().equals(pawn_w)) {
 				t = new Image("File:" + ((PawnW) this.token).getImageString());
 				tV = ((PawnW) this.token).getImageSettings();
 				
 				getChildren().add(tV);
 			}
+
 		}
 		
 		public E getToken() {
@@ -143,7 +150,11 @@ public class Main extends Application {
 		public void setIndexOne(int indexOne);
 		public int getIndexTwo();
 		public void setIndexTwo(int indexTwo);
+		public Image getImage();
+		public String getImageString();
+		public ImageView getImageSettings();
 	}
+	
 	public class PawnW implements ChessPiece {
 		private String token;
 		private int indexOne, indexTwo;
@@ -155,6 +166,54 @@ public class Main extends Application {
 			this.indexTwo = indexTwo;
 			
 			token = pawn_w;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(45);
+			tV.setFitWidth(40);
+			tV.setTranslateX(10);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		
+	}
+	public class PawnB implements ChessPiece {
+		private String token;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public PawnB(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = pawn_b;
 			t = new Image("File:" + token); 
 			
 			tV = new ImageView();

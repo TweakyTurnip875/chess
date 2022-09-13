@@ -111,8 +111,9 @@ public class Main extends Application {
 			this.setOnMouseClicked(e -> handleSelection());
 		}
 		public void handleSelection() {
-			System.out.println(this.token);
-			
+			if(this.token != null) {
+				System.out.println(this.token);
+			}
 		}
 		public void handleToken() throws FileNotFoundException {
 			if(((PawnW) this.token).getImageString().equals(pawn_w)) {

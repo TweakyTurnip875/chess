@@ -166,9 +166,13 @@ public class Main extends Application {
 			
 			if(token == null) {
 				history.setIndexOne(getIndexOne());
-				history.setIndexTwo(getIndexTwo());
+				history.setIndexTwo(getIndexTwo()); 
 				
-				cell[indexOne][indexTwo].setToken(history);
+				if(cell[indexOne][indexTwo].getToken().getIsValid() && cell[indexOne][indexTwo].getToken() != null) {
+					cell[indexOne][indexTwo].setToken(history);
+				}
+				cell[indexOne][indexTwo].setToken(cell[indexOne][indexTwo].getToken());
+				
 			}
 
 		}
@@ -199,10 +203,10 @@ public class Main extends Application {
 			return token;
 		}
 		public void setToken(ChessPiece token) throws FileNotFoundException {
+
 			this.token = token;
-			
+
 			this.handleToken();
-			
 		}
 
 	}
@@ -217,16 +221,19 @@ public class Main extends Application {
 		public String getImageString();
 		public void setImageString(String token);
 		public ImageView getImageSettings();
+		public boolean getIsValid();
 	}
 
 	public class PawnW implements ChessPiece {
+		private boolean isValid = true;
 		private String token;
+
 		private int indexOne, indexTwo;
 		private Image t;
 		private ImageView tV;
 		
 		public PawnW(int indexOne, int indexTwo) {
-			this.indexOne = indexOne;
+			this.indexOne = indexOne; 
 			this.indexTwo = indexTwo;
 			
 			token = pawn_w;
@@ -263,15 +270,33 @@ public class Main extends Application {
 		public int getIndexOne() {
 			return indexOne;
 		}
+		
 		public void setIndexOne(int indexOne) {
-			this.indexOne = indexOne;
+			if(indexOne == this.indexOne) {
+				isValid = true;
+				this.indexOne = indexOne;
+			} else {
+				isValid = false;
+				System.out.println(isValid);
+			}
+
 		}
 		public int getIndexTwo() {
 			return indexTwo;
 		}
 		public void setIndexTwo(int indexTwo) {
-			this.indexTwo = indexTwo;
+			if(indexTwo == indexTwo++) {
+				isValid = true;
+				this.indexTwo = indexTwo;
+			} else {
+				isValid = false;
+				System.out.println(isValid);
+			}
 		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		
 		
 	}
 	public class PawnB implements ChessPiece {
@@ -279,6 +304,7 @@ public class Main extends Application {
 		private int indexOne, indexTwo;
 		private Image t;
 		private ImageView tV;
+		private boolean isValid = true;
 		
 		public PawnB(int indexOne, int indexTwo) {
 			this.indexOne = indexOne;
@@ -318,13 +344,29 @@ public class Main extends Application {
 			return indexOne;
 		}
 		public void setIndexOne(int indexOne) {
-			this.indexOne = indexOne;
+			if(indexOne == this.indexOne) {
+				isValid = true;
+				this.indexOne = indexOne;
+			} else {
+				isValid = false;
+				System.out.println("invalid");
+			}
+
 		}
 		public int getIndexTwo() {
 			return indexTwo;
 		}
 		public void setIndexTwo(int indexTwo) {
-			this.indexTwo = indexTwo;
+			if(indexTwo == indexTwo++) {
+				isValid = true;
+				this.indexTwo = indexTwo;
+			} else {
+				isValid = false;
+				System.out.println("invalid");
+			}
+		}
+		public boolean getIsValid() {
+			return isValid;
 		}
 		
 	}

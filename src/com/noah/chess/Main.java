@@ -101,7 +101,9 @@ public class Main extends Application {
 	
 
 	public ChessPiece history;
-	public class Cell<E> extends Pane {
+	public int histIndOne, histIndTwo;
+	
+	public class Cell extends Pane {
 		private ChessPiece token;
 		
 		private int indexOne;
@@ -113,6 +115,7 @@ public class Main extends Application {
 		public Cell(int indexOne, int indexTwo) {
 			this.indexOne = indexOne;
 			this.indexTwo = indexTwo;
+			
 			
 			this.setPrefSize(2000, 2000);
 			this.setOnMouseClicked(e -> {
@@ -129,7 +132,10 @@ public class Main extends Application {
 		public void handleSelection() throws FileNotFoundException {
 			
 			if(token != null) {
-				history = (ChessPiece)token;
+				history = (ChessPiece)cell[indexOne][indexTwo].getToken();
+				
+				histIndOne = history.getIndexOne();
+				histIndTwo = history.getIndexTwo();
 				
 				System.out.println(history);
 				
@@ -138,28 +144,31 @@ public class Main extends Application {
 			}
 			this.setOnMouseReleased(e -> {
 				if(e.getButton().equals(MouseButton.PRIMARY)) {
+
 					if(e.getClickCount() == 2) {
-					handlePlacement();
-						if(token != null) {
-							token = null;
+						try {
+							handlePlacement();
+							
+						} catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 						}
+						
 					}
+					
 				}
 			});
 			
 		}
-		public void handlePlacement() {
-
+		public void handlePlacement() throws FileNotFoundException {
+			
+			cell[histIndOne][histIndTwo].setToken(null);
 			
 			if(token == null) {
 				history.setIndexOne(getIndexOne());
 				history.setIndexTwo(getIndexTwo());
-				try {
-					setToken(history);
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
+				cell[indexOne][indexTwo].setToken(history);
 			}
 
 		}
@@ -170,20 +179,20 @@ public class Main extends Application {
 			return indexTwo;
 		}
 		public void handleToken() throws FileNotFoundException {
-
-			if(((ChessPiece) this.token).getImageString().equals(pawn_b)) {
-				t = new Image("File:" + ((PawnB) this.token).getImageString());
-				tV = ((PawnB) this.token).getImageSettings();
-				
-				getChildren().add(tV);
+			if(token != null) {
+				if(((ChessPiece) this.token).getImageString().equals(pawn_b)) {
+					t = new Image("File:" + ((PawnB) this.token).getImageString());
+					tV = ((PawnB) this.token).getImageSettings();
+					
+					getChildren().add(tV);
+				}
+				if(((ChessPiece) this.token).getImageString().equals(pawn_w)) {
+					t = new Image("File:" + ((PawnW) this.token).getImageString());
+					tV = ((PawnW) this.token).getImageSettings();
+					
+					getChildren().add(tV);
+				}
 			}
-			if(((ChessPiece) this.token).getImageString().equals(pawn_w)) {
-				t = new Image("File:" + ((PawnW) this.token).getImageString());
-				tV = ((PawnW) this.token).getImageSettings();
-				
-				getChildren().add(tV);
-			}
-
 		}
 		
 		public ChessPiece getToken() {
@@ -209,7 +218,7 @@ public class Main extends Application {
 		public void setImageString(String token);
 		public ImageView getImageSettings();
 	}
-	
+
 	public class PawnW implements ChessPiece {
 		private String token;
 		private int indexOne, indexTwo;

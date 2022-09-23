@@ -5,6 +5,10 @@ import javafx.stage.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import com.noah.chess.pieces.ChessPiece;
+import com.noah.chess.pieces.PawnB;
+import com.noah.chess.pieces.PawnW;
+
 import javafx.application.Application;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -59,36 +63,27 @@ public class Main extends Application {
 					}
 				}
 				
-				if(j == 1) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if((i == 0 && j == 0) || (i == 7 && j == 0)) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if((i == 1 && j == 0) || (i == 6 && j == 0)) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if((i == 2 && j == 0) || (i == 5 && j == 0)) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if(i == 3 && j == 0) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if(i == 4 && j == 0) {
-					cell[i][j].setToken(new PawnB(i, j));
-				}
-				
-				
-				if(j == 6) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if((i == 0 && j == 7) || (i == 7 && j == 7)) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if((i == 1 && j == 7) || (i == 6 && j == 7)) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if((i == 2 && j == 7) || (i == 5 && j == 7)) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if(i == 3 && j == 7) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if(i == 4 && j == 7) {
-					cell[i][j].setToken(new PawnW(i, j));
-				}
 			}
+			
 		}
+		cell[0][1].setToken(new PawnB(0, 1));
+		cell[1][1].setToken(new PawnB(1, 1));
+		cell[2][1].setToken(new PawnB(2, 1));
+		cell[3][1].setToken(new PawnB(3, 1));
+		cell[4][1].setToken(new PawnB(4, 1));
+		cell[5][1].setToken(new PawnB(5, 1));
+		cell[6][1].setToken(new PawnB(6, 1));
+		cell[7][1].setToken(new PawnB(7, 1));
+		
+
+		cell[0][6].setToken(new PawnW(0, 6));
+		cell[1][6].setToken(new PawnW(1, 6));
+		cell[2][6].setToken(new PawnW(2, 6));
+		cell[3][6].setToken(new PawnW(3, 6));
+		cell[4][6].setToken(new PawnW(4, 6));
+		cell[5][6].setToken(new PawnW(5, 6));
+		cell[6][6].setToken(new PawnW(6, 6));
+		cell[7][6].setToken(new PawnW(7, 6));
 		
 		Scene s = new Scene(pane, 500, 500);
 		
@@ -112,10 +107,10 @@ public class Main extends Application {
 		private Image t;
 		private ImageView tV;
 		
+		
 		public Cell(int indexOne, int indexTwo) {
 			this.indexOne = indexOne;
 			this.indexTwo = indexTwo;
-			
 			
 			this.setPrefSize(2000, 2000);
 			this.setOnMouseClicked(e -> {
@@ -168,10 +163,12 @@ public class Main extends Application {
 				history.setIndexOne(getIndexOne());
 				history.setIndexTwo(getIndexTwo()); 
 				
-				if(cell[indexOne][indexTwo].getToken().getIsValid() && cell[indexOne][indexTwo].getToken() != null) {
+				System.out.println(handleIsValid());
+				if(handleIsValid() == true) {
 					cell[indexOne][indexTwo].setToken(history);
+					cell[indexOne][indexTwo].setToken(cell[indexOne][indexTwo].getToken());
 				}
-				cell[indexOne][indexTwo].setToken(cell[indexOne][indexTwo].getToken());
+				
 				
 			}
 
@@ -182,21 +179,12 @@ public class Main extends Application {
 		public int getIndexTwo() {
 			return indexTwo;
 		}
+		public boolean handleIsValid() {
+				return history.getIsValid();
+		}
 		public void handleToken() throws FileNotFoundException {
-			if(token != null) {
-				if(((ChessPiece) this.token).getImageString().equals(pawn_b)) {
-					t = new Image("File:" + ((PawnB) this.token).getImageString());
-					tV = ((PawnB) this.token).getImageSettings();
-					
-					getChildren().add(tV);
-				}
-				if(((ChessPiece) this.token).getImageString().equals(pawn_w)) {
-					t = new Image("File:" + ((PawnW) this.token).getImageString());
-					tV = ((PawnW) this.token).getImageSettings();
-					
-					getChildren().add(tV);
-				}
-			}
+			
+			
 		}
 		
 		public ChessPiece getToken() {
@@ -206,170 +194,22 @@ public class Main extends Application {
 
 			this.token = token;
 
-			this.handleToken();
-		}
-
-	}
-	public interface ChessPiece {
-		
-		public int getIndexOne();
-		public void setIndexOne(int indexOne);
-		public int getIndexTwo();
-		public void setIndexTwo(int indexTwo);
-		public Image getImage();
-		public void setImage(Image t);
-		public String getImageString();
-		public void setImageString(String token);
-		public ImageView getImageSettings();
-		public boolean getIsValid();
-	}
-
-	public class PawnW implements ChessPiece {
-		private boolean isValid = true;
-		private String token;
-
-		private int indexOne, indexTwo;
-		private Image t;
-		private ImageView tV;
-		
-		public PawnW(int indexOne, int indexTwo) {
-			this.indexOne = indexOne; 
-			this.indexTwo = indexTwo;
-			
-			token = pawn_w;
-			t = new Image("File:" + token); 
-			
-			tV = new ImageView();
-			
-			tV.setFitHeight(45);
-			tV.setFitWidth(40);
-			tV.setTranslateX(10);
-			tV.setTranslateY(7);
-			
-			tV.setImage(t);
-			
-			
-		}
-		
-		public Image getImage() {
-			return t;
-		}
-		public void setImage(Image t) {
-			this.t = t;
-		}
-		public String getImageString() {
-			return token;
-		}
-		public void setImageString(String token) {
-			this.token = token;
-		}
-
-		public ImageView getImageSettings() {
-			return tV;
-		}
-		public int getIndexOne() {
-			return indexOne;
-		}
-		
-		public void setIndexOne(int indexOne) {
-			if(indexOne == this.indexOne) {
-				isValid = true;
-				this.indexOne = indexOne;
-			} else {
-				isValid = false;
-				System.out.println(isValid);
-			}
-
-		}
-		public int getIndexTwo() {
-			return indexTwo;
-		}
-		public void setIndexTwo(int indexTwo) {
-			if(indexTwo == indexTwo++) {
-				isValid = true;
-				this.indexTwo = indexTwo;
-			} else {
-				isValid = false;
-				System.out.println(isValid);
+			if(token instanceof PawnW) {
+				t = token.getImage();
+				tV = token.getImageSettings();
+				
+					if(token.getIsValid()) {
+						getChildren().add(tV);
+					}
 			}
 		}
-		public boolean getIsValid() {
-			return isValid;
-		}
-		
-		
 	}
-	public class PawnB implements ChessPiece {
-		private String token;
-		private int indexOne, indexTwo;
-		private Image t;
-		private ImageView tV;
-		private boolean isValid = true;
-		
-		public PawnB(int indexOne, int indexTwo) {
-			this.indexOne = indexOne;
-			this.indexTwo = indexTwo;
-			
-			token = pawn_b;
-			t = new Image("File:" + token); 
-			
-			tV = new ImageView();
-			
-			tV.setFitHeight(45);
-			tV.setFitWidth(40);
-			tV.setTranslateX(10);
-			tV.setTranslateY(7);
-			
-			tV.setImage(t);
-			
-			
-		}
-		
-		public Image getImage() {
-			return t;
-		}
-		public void setImage(Image t) {
-			this.t = t;
-		}
-		public String getImageString() {
-			return token;
-		}
-		public void setImageString(String token) {
-			this.token = token;
-		}
-		public ImageView getImageSettings() {
-			return tV;
-		}
-		public int getIndexOne() {
-			return indexOne;
-		}
-		public void setIndexOne(int indexOne) {
-			if(indexOne == this.indexOne) {
-				isValid = true;
-				this.indexOne = indexOne;
-			} else {
-				isValid = false;
-				System.out.println("invalid");
-			}
 
-		}
-		public int getIndexTwo() {
-			return indexTwo;
-		}
-		public void setIndexTwo(int indexTwo) {
-			if(indexTwo == indexTwo++) {
-				isValid = true;
-				this.indexTwo = indexTwo;
-			} else {
-				isValid = false;
-				System.out.println("invalid");
-			}
-		}
-		public boolean getIsValid() {
-			return isValid;
-		}
-		
-	}
+	
+
+
+
+
 	public static void main(String[] args) {
 		launch(args);
 	}

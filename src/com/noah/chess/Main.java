@@ -173,7 +173,9 @@ public class Main extends Application {
 			boolean knightwCond2One = (indexTwo == histIndTwo - 2);
 			boolean knightwCond2Two = (indexTwo == histIndTwo + 2);
 			boolean knightwCond3One = (indexOne == histIndOne - 2);
-			boolean knightwCond3Two = (indexTwo == histIndOne + 2);
+			boolean knightwCond3Two = (indexOne == histIndOne + 2);
+			boolean knightwCond4One = (indexTwo == histIndTwo - 2);
+			boolean knightwCond4Two = (indexTwo == histIndTwo + 2);
 			
 			//if the piece to move is in the same column and is equal to its current space - 1
 			if(((ChessPiece) history).getImageString().equals(pawn_w)) {

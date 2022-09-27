@@ -59,36 +59,31 @@ public class Main extends Application {
 					}
 				}
 				
-				if(j == 1) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if((i == 0 && j == 0) || (i == 7 && j == 0)) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if((i == 1 && j == 0) || (i == 6 && j == 0)) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if((i == 2 && j == 0) || (i == 5 && j == 0)) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if(i == 3 && j == 0) {
-					cell[i][j].setToken(new PawnB(i, j));
-				} else if(i == 4 && j == 0) {
-					cell[i][j].setToken(new PawnB(i, j));
-				}
-				
-				
-				if(j == 6) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if((i == 0 && j == 7) || (i == 7 && j == 7)) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if((i == 1 && j == 7) || (i == 6 && j == 7)) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if((i == 2 && j == 7) || (i == 5 && j == 7)) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if(i == 3 && j == 7) {
-					cell[i][j].setToken(new PawnW(i, j));
-				} else if(i == 4 && j == 7) {
-					cell[i][j].setToken(new PawnW(i, j));
-				}
+
+
 			}
+			
 		}
+		
+		cell[0][1].setToken(new PawnB(0, 1));
+		cell[1][1].setToken(new PawnB(1, 1));
+		cell[2][1].setToken(new PawnB(2, 1));
+		cell[3][1].setToken(new PawnB(3, 1));
+		cell[4][1].setToken(new PawnB(4, 1));
+		cell[5][1].setToken(new PawnB(5, 1));
+		cell[6][1].setToken(new PawnB(6, 1));
+		cell[7][1].setToken(new PawnB(7, 1));
+		
+
+		cell[0][6].setToken(new PawnW(0, 6));
+		cell[1][6].setToken(new PawnW(1, 6));
+		cell[2][6].setToken(new PawnW(2, 6));
+		cell[3][6].setToken(new PawnW(3, 6));
+		cell[4][6].setToken(new PawnW(4, 6));
+		cell[5][6].setToken(new PawnW(5, 6));
+		cell[6][6].setToken(new PawnW(6, 6));
+		cell[7][6].setToken(new PawnW(7, 6));
+		
 		
 		Scene s = new Scene(pane, 500, 500);
 		
@@ -162,15 +157,24 @@ public class Main extends Application {
 		}
 		public void handlePlacement() throws FileNotFoundException {
 			
-			cell[histIndOne][histIndTwo].setToken(null);
-			
-			if(token == null) {
+			//if the piece to move is in the same column and is equal to its current space - 1
+			if(((ChessPiece) history).getImageString().equals(pawn_w)) {
+				if(indexOne == histIndOne && indexTwo == histIndTwo - 1) {
+					history.setIsValid(true); // allows piece to move if it meets the requirements
+					cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+				}
+			}
+
+			if(history.getIsValid() == true) {
+				// sets the piece to move indexes to the current cell location
 				history.setIndexOne(getIndexOne());
 				history.setIndexTwo(getIndexTwo());
 				
+				// sets the space to move tos token with the piece to move
 				cell[indexOne][indexTwo].setToken(history);
 			}
-
+			// makes sure the piece can't move into any invalid spaces after isValid is set to true
+			history.setIsValid(false);
 		}
 		public int getIndexOne() {
 			return indexOne;
@@ -209,6 +213,8 @@ public class Main extends Application {
 	public interface ChessPiece {
 		
 		public int getIndexOne();
+		public boolean getIsValid();
+		public void setIsValid(boolean isValid);
 		public void setIndexOne(int indexOne);
 		public int getIndexTwo();
 		public void setIndexTwo(int indexTwo);
@@ -221,6 +227,7 @@ public class Main extends Application {
 
 	public class PawnW implements ChessPiece {
 		private String token;
+		private boolean isValid = false;
 		private int indexOne, indexTwo;
 		private Image t;
 		private ImageView tV;
@@ -272,10 +279,17 @@ public class Main extends Application {
 		public void setIndexTwo(int indexTwo) {
 			this.indexTwo = indexTwo;
 		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
 		
 	}
 	public class PawnB implements ChessPiece {
 		private String token;
+		private boolean isValid = false;
 		private int indexOne, indexTwo;
 		private Image t;
 		private ImageView tV;
@@ -326,7 +340,12 @@ public class Main extends Application {
 		public void setIndexTwo(int indexTwo) {
 			this.indexTwo = indexTwo;
 		}
-		
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
 	}
 	public static void main(String[] args) {
 		launch(args);

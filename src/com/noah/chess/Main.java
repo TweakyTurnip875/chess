@@ -183,9 +183,15 @@ public class Main extends Application {
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
 			} else if(history.getImageString().equals(bishop_w)) {
-				
+				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
+					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
+						cell[histIndOne][histIndTwo].setToken(null);
+						history.setIsValid(true);
+
+					}
+				}
 			}
-			System.out.println(histIndTwo);
+			System.out.println(indexOne != histIndOne && indexOne != histIndTwo);
 			if(history.getIsValid() == true) {
 				// sets the piece to move indexes to the current cell location
 				history.setIndexOne(getIndexOne());

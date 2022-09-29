@@ -193,6 +193,8 @@ public class Main extends Application {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
+			} else if(((ChessPiece) history).getImageString().equals(bishop_w)) {
+				
 			}
 			System.out.println(histIndTwo);
 			if(history.getIsValid() == true) {
@@ -213,43 +215,51 @@ public class Main extends Application {
 			return indexTwo;
 		}
 		public void handleToken() throws FileNotFoundException {
+			String[] images = {pawn_w, pawn_b, rook_w, rook_b, knight_w, knight_b, bishop_w, bishop_b, king_w, king_b, queen_w, queen_b};
+			
 			if(token != null) {
-				if(token.getImageString().equals(pawn_b)) {
-					t = new Image("File:" + ((PawnB) this.token).getImageString());
-					tV = ((PawnB) this.token).getImageSettings();
-					
-					getChildren().add(tV);
+				for(int i = 0; i < images.length - 1; i++) {
+					if(token.getImageString().equals(images[i])) {
+						t = new Image("File:" + token.getImageString().equals(images[i]));
+						tV = token.getImageSettings();
+						
+						getChildren().add(tV);
+					}
 				}
-				if(token.getImageString().equals(pawn_w)) {
-					t = new Image("File:" + ((PawnW) this.token).getImageString());
-					tV = ((PawnW) this.token).getImageSettings();
-					
-					getChildren().add(tV);
-				}
-				if(token.getImageString().equals(rook_w)) {
-					t = new Image("File:" + ((RookW) this.token).getImageString());
-					tV = ((RookW) this.token).getImageSettings();
-					
-					getChildren().add(tV);
-				}
-				if(token.getImageString().equals(rook_b)) {
-					t = new Image("File:" + ((RookB) this.token).getImageString());
-					tV = ((RookB) this.token).getImageSettings();
-					
-					getChildren().add(tV);
-				}
-				if(token.getImageString().equals(knight_w)) {
-					t = new Image("File:" + ((KnightW) this.token).getImageString());
-					tV = ((KnightW) this.token).getImageSettings();
-					
-					getChildren().add(tV);					
-				}
-				if(token.getImageString().equals(knight_b)) {
-					t = new Image("File:" + ((KnightB) this.token).getImageString());
-					tV = ((KnightB) this.token).getImageSettings();
-					
-					getChildren().add(tV);					
-				}
+//				if(token.getImageString().equals(pawn_b)) {
+//
+//				}
+//				if(token.getImageString().equals(pawn_w)) {
+//					t = new Image("File:" + ((PawnW) this.token).getImageString());
+//					tV = ((PawnW) this.token).getImageSettings();
+//					
+//					getChildren().add(tV);
+//				}
+//				if(token.getImageString().equals(rook_w)) {
+//					t = new Image("File:" + ((RookW) this.token).getImageString());
+//					tV = ((RookW) this.token).getImageSettings();
+//					
+//					getChildren().add(tV);
+//				}
+//				if(token.getImageString().equals(rook_b)) {
+//					t = new Image("File:" + ((RookB) this.token).getImageString());
+//					tV = ((RookB) this.token).getImageSettings();
+//					
+//					getChildren().add(tV);
+//				}
+//				if(token.getImageString().equals(knight_w)) {
+//					t = new Image("File:" + ((KnightW) this.token).getImageString());
+//					tV = ((KnightW) this.token).getImageSettings();
+//					
+//					getChildren().add(tV);					
+//				}
+//				if(token.getImageString().equals(knight_b)) {
+//					t = new Image("File:" + ((KnightB) this.token).getImageString());
+//					tV = ((KnightB) this.token).getImageSettings();
+//					
+//					getChildren().add(tV);					
+//				}
+				
 			}
 		}
 		
@@ -645,6 +655,7 @@ public class Main extends Application {
 			this.isValid = isValid;
 		}
 	}
+	
 	
 	public static void main(String[] args) {
 		launch(args);

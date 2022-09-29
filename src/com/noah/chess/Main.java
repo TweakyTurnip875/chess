@@ -196,8 +196,14 @@ public class Main extends Application {
 
 					}
 				}
+			} else if(history.getImageString().equals(king_w)) {
+				if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
+					history.setIsValid(true);
+					cell[histIndOne][histIndTwo].setToken(null);
+				}
 			}
-			System.out.println(indexOne != histIndOne && indexOne != histIndTwo);
+			System.out.println(indexOne == histIndOne + 1 || indexOne == histIndOne - 1 || indexTwo == histIndTwo + 1 || indexTwo == histIndTwo + 1);
+			
 			if(history.getIsValid() == true) {
 				// sets the piece to move indexes to the current cell location
 				history.setIndexOne(getIndexOne());

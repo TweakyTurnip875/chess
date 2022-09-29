@@ -64,37 +64,26 @@ public class Main extends Application {
 			}
 			
 		}
-		
-		cell[0][1].setToken(new PawnB(0, 1));
-		cell[1][1].setToken(new PawnB(1, 1));
-		cell[2][1].setToken(new PawnB(2, 1));
-		cell[3][1].setToken(new PawnB(3, 1));
-		cell[4][1].setToken(new PawnB(4, 1));
-		cell[5][1].setToken(new PawnB(5, 1));
-		cell[6][1].setToken(new PawnB(6, 1));
-		cell[7][1].setToken(new PawnB(7, 1));
+		for(int i = 0; i < 8; i++) {
+			cell[i][1].setToken(new PawnB(i, 1));
+			cell[i][6].setToken(new PawnW(i, 6));
+		}
 		
 		cell[0][0].setToken(new RookB(0, 0));
 		cell[7][0].setToken(new RookB(7, 0));
 		
 		cell[1][0].setToken(new KnightB(1, 0));
 		cell[6][0].setToken(new KnightB(6, 0));
-		
 
-		cell[0][6].setToken(new PawnW(0, 6));
-		cell[1][6].setToken(new PawnW(1, 6));
-		cell[2][6].setToken(new PawnW(2, 6));
-		cell[3][6].setToken(new PawnW(3, 6));
-		cell[4][6].setToken(new PawnW(4, 6));
-		cell[5][6].setToken(new PawnW(5, 6));
-		cell[6][6].setToken(new PawnW(6, 6));
-		cell[7][6].setToken(new PawnW(7, 6));
 		
 		cell[0][7].setToken(new RookW(0, 7));
 		cell[7][7].setToken(new RookW(7, 7));
 		
 		cell[1][7].setToken(new KnightW(1, 7));
 		cell[6][7].setToken(new KnightW(6, 7));
+		
+		cell[2][7].setToken(new BishopW(2, 7));
+		cell[5][7].setToken(new BishopW(5, 7));
 		
 		
 		Scene s = new Scene(pane, 500, 500);
@@ -168,14 +157,14 @@ public class Main extends Application {
 			
 		}
 		public void handlePlacement() throws FileNotFoundException {
-			boolean knightwCond1One = (indexOne == histIndOne - 1);
-			boolean knightwCond1Two = (indexOne == histIndOne + 1);
-			boolean knightwCond2One = (indexTwo == histIndTwo - 2);
-			boolean knightwCond2Two = (indexTwo == histIndTwo + 2);
-			boolean knightwCond3One = (indexOne == histIndOne - 2);
-			boolean knightwCond3Two = (indexOne == histIndOne + 2);
-			boolean knightwCond4One = (indexTwo == histIndTwo - 1);
-			boolean knightwCond4Two = (indexTwo == histIndTwo + 1);
+			boolean[] knightwConds = {(indexOne == histIndOne - 1), 
+									  (indexOne == histIndOne + 1), 
+									  (indexTwo == histIndTwo - 2),
+									  (indexTwo == histIndTwo + 2),
+									  (indexOne == histIndOne - 2),
+									  (indexOne == histIndOne + 2),
+									  (indexTwo == histIndTwo - 1),
+									  (indexTwo == histIndTwo + 1)};
 			
 			//if the piece to move is in the same column and is equal to its current space - 1
 			if(((ChessPiece) history).getImageString().equals(pawn_w)) {
@@ -189,12 +178,12 @@ public class Main extends Application {
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
 			} else if(((ChessPiece) history).getImageString().equals(knight_w)) {
-				if(((knightwCond1One || knightwCond1Two) && (knightwCond2One || knightwCond2Two)) || ((knightwCond3One || knightwCond3Two) && (knightwCond4One || knightwCond4Two))) {
+				if(((knightwConds[0] ||knightwConds[1]) && (knightwConds[2] || knightwConds[3])) || ((knightwConds[4] || knightwConds[5]) && (knightwConds[6] || knightwConds[7]))) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
 			} else if(((ChessPiece) history).getImageString().equals(bishop_w)) {
-				
+				//if()
 			}
 			System.out.println(histIndTwo);
 			if(history.getIsValid() == true) {
@@ -226,39 +215,6 @@ public class Main extends Application {
 						getChildren().add(tV);
 					}
 				}
-//				if(token.getImageString().equals(pawn_b)) {
-//
-//				}
-//				if(token.getImageString().equals(pawn_w)) {
-//					t = new Image("File:" + ((PawnW) this.token).getImageString());
-//					tV = ((PawnW) this.token).getImageSettings();
-//					
-//					getChildren().add(tV);
-//				}
-//				if(token.getImageString().equals(rook_w)) {
-//					t = new Image("File:" + ((RookW) this.token).getImageString());
-//					tV = ((RookW) this.token).getImageSettings();
-//					
-//					getChildren().add(tV);
-//				}
-//				if(token.getImageString().equals(rook_b)) {
-//					t = new Image("File:" + ((RookB) this.token).getImageString());
-//					tV = ((RookB) this.token).getImageSettings();
-//					
-//					getChildren().add(tV);
-//				}
-//				if(token.getImageString().equals(knight_w)) {
-//					t = new Image("File:" + ((KnightW) this.token).getImageString());
-//					tV = ((KnightW) this.token).getImageSettings();
-//					
-//					getChildren().add(tV);					
-//				}
-//				if(token.getImageString().equals(knight_b)) {
-//					t = new Image("File:" + ((KnightB) this.token).getImageString());
-//					tV = ((KnightB) this.token).getImageSettings();
-//					
-//					getChildren().add(tV);					
-//				}
 				
 			}
 		}
@@ -655,7 +611,67 @@ public class Main extends Application {
 			this.isValid = isValid;
 		}
 	}
-	
+	public class BishopW implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public BishopW(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = bishop_w;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(45);
+			tV.setFitWidth(35);
+			tV.setTranslateX(13);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
 	
 	public static void main(String[] args) {
 		launch(args);

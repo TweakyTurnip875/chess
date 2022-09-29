@@ -92,6 +92,8 @@ public class Main extends Application {
 		
 		cell[3][7].setToken(new KingW(3, 7));
 		
+		cell[4][7].setToken(new QueenW(4, 7));
+		
 		
 		
 		Scene s = new Scene(pane, 500, 500);
@@ -882,6 +884,68 @@ public class Main extends Application {
 			this.isValid = isValid;
 		}
 	}
+	public class QueenW implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public QueenW(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = queen_w;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(50);
+			tV.setFitWidth(45);
+			tV.setTranslateX(10);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		launch(args);

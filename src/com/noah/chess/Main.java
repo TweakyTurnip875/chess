@@ -64,31 +64,36 @@ public class Main extends Application {
 			}
 			
 		}
-		
-		cell[0][1].setToken(new PawnB(0, 1));
-		cell[1][1].setToken(new PawnB(1, 1));
-		cell[2][1].setToken(new PawnB(2, 1));
-		cell[3][1].setToken(new PawnB(3, 1));
-		cell[4][1].setToken(new PawnB(4, 1));
-		cell[5][1].setToken(new PawnB(5, 1));
-		cell[6][1].setToken(new PawnB(6, 1));
-		cell[7][1].setToken(new PawnB(7, 1));
+		for(int i = 0; i < 8; i++) {
+			cell[i][1].setToken(new PawnB(i, 1));
+			cell[i][6].setToken(new PawnW(i, 6));
+		}
 		
 		cell[0][0].setToken(new RookB(0, 0));
 		cell[7][0].setToken(new RookB(7, 0));
 		
+		cell[1][0].setToken(new KnightB(1, 0));
+		cell[6][0].setToken(new KnightB(6, 0));
+		
+		cell[2][0].setToken(new BishopB(2, 0));
+		cell[5][0].setToken(new BishopB(5, 0));
+		
+		cell[3][0].setToken(new KingB(3, 0));
 
-		cell[0][6].setToken(new PawnW(0, 6));
-		cell[1][6].setToken(new PawnW(1, 6));
-		cell[2][6].setToken(new PawnW(2, 6));
-		cell[3][6].setToken(new PawnW(3, 6));
-		cell[4][6].setToken(new PawnW(4, 6));
-		cell[5][6].setToken(new PawnW(5, 6));
-		cell[6][6].setToken(new PawnW(6, 6));
-		cell[7][6].setToken(new PawnW(7, 6));
 		
 		cell[0][7].setToken(new RookW(0, 7));
 		cell[7][7].setToken(new RookW(7, 7));
+		
+		cell[1][7].setToken(new KnightW(1, 7));
+		cell[6][7].setToken(new KnightW(6, 7));
+		
+		cell[2][7].setToken(new BishopW(2, 7));
+		cell[5][7].setToken(new BishopW(5, 7));
+		
+		cell[3][7].setToken(new KingW(3, 7));
+		
+		cell[4][7].setToken(new QueenW(4, 7));
+		
 		
 		
 		Scene s = new Scene(pane, 500, 500);
@@ -162,20 +167,54 @@ public class Main extends Application {
 			
 		}
 		public void handlePlacement() throws FileNotFoundException {
+			boolean[] knightwConds = {(indexOne == histIndOne - 1), 
+									  (indexOne == histIndOne + 1), 
+									  (indexTwo == histIndTwo - 2),
+									  (indexTwo == histIndTwo + 2),
+									  (indexOne == histIndOne - 2),
+									  (indexOne == histIndOne + 2),
+									  (indexTwo == histIndTwo - 1),
+									  (indexTwo == histIndTwo + 1)};
 			
 			//if the piece to move is in the same column and is equal to its current space - 1
-			if(((ChessPiece) history).getImageString().equals(pawn_w)) {
-				if(indexOne == histIndOne && indexTwo == histIndTwo - 1) {
-					history.setIsValid(true); // allows piece to move if it meets the requirements
-					cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+			if(history.getImageString().equals(pawn_w)) {
+				if(histIndTwo == 6) {
+					if(indexOne == histIndOne && indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1) {
+						history.setIsValid(true); // allows piece to move if it meets the requirements
+						cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+					}
+				} else {
+					if(indexOne == histIndOne && indexTwo == histIndTwo - 1) {
+						history.setIsValid(true); // allows piece to move if it meets the requirements
+						cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+					}
 				}
-			} else if(((ChessPiece) history).getImageString().equals(rook_w)) {
+			} else if(history.getImageString().equals(rook_w)) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			}
+			} else if(history.getImageString().equals(knight_w)) {
+				if(((knightwConds[0] ||knightwConds[1]) && (knightwConds[2] || knightwConds[3])) || ((knightwConds[4] || knightwConds[5]) && (knightwConds[6] || knightwConds[7]))) {
+					history.setIsValid(true);
+					cell[histIndOne][histIndTwo].setToken(null);
+				}
+			} else if(history.getImageString().equals(bishop_w)) {
+				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
+					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
+						cell[histIndOne][histIndTwo].setToken(null);
+						history.setIsValid(true);
 
+					}
+				}
+			} else if(history.getImageString().equals(king_w)) {
+				if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
+					history.setIsValid(true);
+					cell[histIndOne][histIndTwo].setToken(null);
+				}
+			}
+			System.out.println(indexTwo <= histIndTwo - 2);
+			
 			if(history.getIsValid() == true) {
 				// sets the piece to move indexes to the current cell location
 				history.setIndexOne(getIndexOne());
@@ -194,31 +233,18 @@ public class Main extends Application {
 			return indexTwo;
 		}
 		public void handleToken() throws FileNotFoundException {
+			String[] images = {pawn_w, pawn_b, rook_w, rook_b, knight_w, knight_b, bishop_w, bishop_b, king_w, king_b, queen_w, queen_b};
+			
 			if(token != null) {
-				if(token.getImageString().equals(pawn_b)) {
-					t = new Image("File:" + ((PawnB) this.token).getImageString());
-					tV = ((PawnB) this.token).getImageSettings();
-					
-					getChildren().add(tV);
+				for(int i = 0; i < images.length - 1; i++) {
+					if(token.getImageString().equals(images[i])) {
+						t = new Image("File:" + token.getImageString().equals(images[i]));
+						tV = token.getImageSettings();
+						
+						getChildren().add(tV);
+					}
 				}
-				if(token.getImageString().equals(pawn_w)) {
-					t = new Image("File:" + ((PawnW) this.token).getImageString());
-					tV = ((PawnW) this.token).getImageSettings();
-					
-					getChildren().add(tV);
-				}
-				if(token.getImageString().equals(rook_w)) {
-					t = new Image("File:" + ((RookW) this.token).getImageString());
-					tV = ((RookW) this.token).getImageSettings();
-					
-					getChildren().add(tV);
-				}
-				if(token.getImageString().equals(rook_b)) {
-					t = new Image("File:" + ((RookB) this.token).getImageString());
-					tV = ((RookB) this.token).getImageSettings();
-					
-					getChildren().add(tV);
-				}
+				
 			}
 		}
 		
@@ -492,7 +518,435 @@ public class Main extends Application {
 			this.isValid = isValid;
 		}
 	}	
+	public class KnightW implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public KnightW(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = knight_w;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(45);
+			tV.setFitWidth(35);
+			tV.setTranslateX(13);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
 
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
+	public class KnightB implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public KnightB(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = knight_b;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(45);
+			tV.setFitWidth(35);
+			tV.setTranslateX(13);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
+	public class BishopW implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public BishopW(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = bishop_w;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(45);
+			tV.setFitWidth(35);
+			tV.setTranslateX(13);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
+	public class BishopB implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public BishopB(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = bishop_b;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(45);
+			tV.setFitWidth(35);
+			tV.setTranslateX(13);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
+	public class KingW implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public KingW(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = king_w;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(50);
+			tV.setFitWidth(45);
+			tV.setTranslateX(10);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
+	public class KingB implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public KingB(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = king_b;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(50);
+			tV.setFitWidth(45);
+			tV.setTranslateX(10);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
+	public class QueenW implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public QueenW(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = queen_w;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(50);
+			tV.setFitWidth(45);
+			tV.setTranslateX(10);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

@@ -174,8 +174,8 @@ public class Main extends Application {
 			boolean knightwCond2Two = (indexTwo == histIndTwo + 2);
 			boolean knightwCond3One = (indexOne == histIndOne - 2);
 			boolean knightwCond3Two = (indexOne == histIndOne + 2);
-			boolean knightwCond4One = (indexTwo == histIndTwo - 2);
-			boolean knightwCond4Two = (indexTwo == histIndTwo + 2);
+			boolean knightwCond4One = (indexTwo == histIndTwo - 1);
+			boolean knightwCond4Two = (indexTwo == histIndTwo + 1);
 			
 			//if the piece to move is in the same column and is equal to its current space - 1
 			if(((ChessPiece) history).getImageString().equals(pawn_w)) {
@@ -189,7 +189,7 @@ public class Main extends Application {
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
 			} else if(((ChessPiece) history).getImageString().equals(knight_w)) {
-				if((knightwCond1One || knightwCond1Two) && (knightwCond2One || knightwCond2Two) || (knightwCond3One || knightwCond3Two)) {
+				if(((knightwCond1One || knightwCond1Two) && (knightwCond2One || knightwCond2Two)) || ((knightwCond3One || knightwCond3Two) && (knightwCond4One || knightwCond4Two))) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}

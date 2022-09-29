@@ -74,6 +74,9 @@ public class Main extends Application {
 		
 		cell[1][0].setToken(new KnightB(1, 0));
 		cell[6][0].setToken(new KnightB(6, 0));
+		
+		cell[2][0].setToken(new BishopB(2, 0));
+		cell[5][0].setToken(new BishopB(5, 0));
 
 		
 		cell[0][7].setToken(new RookW(0, 7));
@@ -84,6 +87,7 @@ public class Main extends Application {
 		
 		cell[2][7].setToken(new BishopW(2, 7));
 		cell[5][7].setToken(new BishopW(5, 7));
+		
 		
 		
 		Scene s = new Scene(pane, 500, 500);
@@ -678,7 +682,67 @@ public class Main extends Application {
 			this.isValid = isValid;
 		}
 	}
-	
+	public class BishopB implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public BishopB(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = bishop_b;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(45);
+			tV.setFitWidth(35);
+			tV.setTranslateX(13);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}

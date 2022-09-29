@@ -167,23 +167,23 @@ public class Main extends Application {
 									  (indexTwo == histIndTwo + 1)};
 			
 			//if the piece to move is in the same column and is equal to its current space - 1
-			if(((ChessPiece) history).getImageString().equals(pawn_w)) {
+			if(history.getImageString().equals(pawn_w)) {
 				if(indexOne == histIndOne && indexTwo == histIndTwo - 1) {
 					history.setIsValid(true); // allows piece to move if it meets the requirements
 					cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
 				}
-			} else if(((ChessPiece) history).getImageString().equals(rook_w)) {
+			} else if(history.getImageString().equals(rook_w)) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			} else if(((ChessPiece) history).getImageString().equals(knight_w)) {
+			} else if(history.getImageString().equals(knight_w)) {
 				if(((knightwConds[0] ||knightwConds[1]) && (knightwConds[2] || knightwConds[3])) || ((knightwConds[4] || knightwConds[5]) && (knightwConds[6] || knightwConds[7]))) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
 			} else if(((ChessPiece) history).getImageString().equals(bishop_w)) {
-				//if()
+				
 			}
 			System.out.println(histIndTwo);
 			if(history.getIsValid() == true) {

@@ -182,7 +182,7 @@ public class Main extends Application {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			} else if(((ChessPiece) history).getImageString().equals(bishop_w)) {
+			} else if(history.getImageString().equals(bishop_w)) {
 				
 			}
 			System.out.println(histIndTwo);

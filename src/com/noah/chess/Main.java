@@ -178,6 +178,8 @@ public class Main extends Application {
 									  (indexTwo == histIndTwo - 1),
 									  (indexTwo == histIndTwo + 1)};
 			
+
+			
 			//if the piece to move is in the same column and is equal to its current space - 1
 			if(history.getImageString().equals(pawn_w)) {
 				if(histIndTwo == 6) {
@@ -193,8 +195,21 @@ public class Main extends Application {
 				}
 			} else if(history.getImageString().equals(rook_w) || history.getImageString().equals(rook_b)) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
-					history.setIsValid(true);
-					cell[histIndOne][histIndTwo].setToken(null);
+					boolean valid = true;
+					
+				
+					for(int i = histIndTwo + 1; i < indexTwo; i++) {
+						System.out.println(cell[0][i].getToken() == null);
+						
+						if(cell[0][i].getToken() != null) {
+							valid = false;
+
+						}
+					} 
+					history.setIsValid(valid);
+					if(history.getIsValid()) {
+						cell[histIndOne][histIndTwo].setToken(null);
+					}
 				}
 			} else if(history.getImageString().equals(knight_w) || history.getImageString().equals(knight_b)) {
 				if(((knightConds[0] ||knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
@@ -239,7 +254,6 @@ public class Main extends Application {
 					}
 				}
 			} 
-			System.out.println(indexTwo <= histIndTwo - 2);
 			
 			if(history.getIsValid() == true) {
 				// sets the piece to move indexes to the current cell location

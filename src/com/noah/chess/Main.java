@@ -182,8 +182,9 @@ public class Main extends Application {
 			
 			//if the piece to move is in the same column and is equal to its current space - 1
 			if(history.getImageString().equals(pawn_w)) {
+				//System.out.println(indexOne == histIndOne);
 				if(histIndTwo == 6) {
-					if(indexOne == histIndOne && indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1) {
+					if(indexOne == histIndOne && (indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1)) {
 						history.setIsValid(true); // allows piece to move if it meets the requirements
 						cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
 					}
@@ -243,7 +244,7 @@ public class Main extends Application {
 			}
 			if(history.getImageString().equals(pawn_b)) {
 				if(histIndTwo == 1) {
-					if(indexOne == histIndOne && indexTwo == histIndTwo + 2 || indexTwo == histIndTwo + 1) {
+					if(indexOne == histIndOne && (indexTwo == histIndTwo + 2 || indexTwo == histIndTwo + 1)) {
 						history.setIsValid(true); 
 						cell[histIndOne][histIndTwo].setToken(null);
 					}

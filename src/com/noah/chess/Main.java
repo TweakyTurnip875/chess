@@ -214,7 +214,7 @@ public class Main extends Application {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			} else if(history.getImageString().equals(queen_w)) {
+			} else if(history.getImageString().equals(queen_w) || history.getImageString().equals(queen_b)) {
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
 						history.setIsValid(true);

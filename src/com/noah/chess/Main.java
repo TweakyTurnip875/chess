@@ -79,6 +79,8 @@ public class Main extends Application {
 		cell[5][0].setToken(new BishopB(5, 0));
 		
 		cell[3][0].setToken(new KingB(3, 0));
+		
+		cell[4][0].setToken(new QueenB(4, 0));
 
 		
 		cell[0][7].setToken(new RookW(0, 7));
@@ -167,7 +169,7 @@ public class Main extends Application {
 			
 		}
 		public void handlePlacement() throws FileNotFoundException {
-			boolean[] knightwConds = {(indexOne == histIndOne - 1), 
+			boolean[] knightConds = {(indexOne == histIndOne - 1), 
 									  (indexOne == histIndOne + 1), 
 									  (indexTwo == histIndTwo - 2),
 									  (indexTwo == histIndTwo + 2),
@@ -189,17 +191,17 @@ public class Main extends Application {
 						cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
 					}
 				}
-			} else if(history.getImageString().equals(rook_w)) {
+			} else if(history.getImageString().equals(rook_w) || history.getImageString().equals(rook_b)) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			} else if(history.getImageString().equals(knight_w)) {
-				if(((knightwConds[0] ||knightwConds[1]) && (knightwConds[2] || knightwConds[3])) || ((knightwConds[4] || knightwConds[5]) && (knightwConds[6] || knightwConds[7]))) {
+			} else if(history.getImageString().equals(knight_w) || history.getImageString().equals(knight_b)) {
+				if(((knightConds[0] ||knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			} else if(history.getImageString().equals(bishop_w)) {
+			} else if(history.getImageString().equals(bishop_w) || history.getImageString().equals(bishop_b)) {
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
 						cell[histIndOne][histIndTwo].setToken(null);
@@ -207,7 +209,7 @@ public class Main extends Application {
 
 					}
 				}
-			} else if(history.getImageString().equals(king_w)) {
+			} else if(history.getImageString().equals(king_w) || history.getImageString().equals(king_b)) {
 				if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
@@ -224,6 +226,19 @@ public class Main extends Application {
 				}
 				
 			}
+			if(history.getImageString().equals(pawn_b)) {
+				if(histIndTwo == 1) {
+					if(indexOne == histIndOne && indexTwo == histIndTwo + 2 || indexTwo == histIndTwo + 1) {
+						history.setIsValid(true); 
+						cell[histIndOne][histIndTwo].setToken(null);
+					}
+				} else {
+					if(indexOne == histIndOne && indexTwo == histIndTwo + 1) {
+						history.setIsValid(true); 
+						cell[histIndOne][histIndTwo].setToken(null); 
+					}
+				}
+			} 
 			System.out.println(indexTwo <= histIndTwo - 2);
 			
 			if(history.getIsValid() == true) {
@@ -247,7 +262,7 @@ public class Main extends Application {
 			String[] images = {pawn_w, pawn_b, rook_w, rook_b, knight_w, knight_b, bishop_w, bishop_b, king_w, king_b, queen_w, queen_b};
 			
 			if(token != null) {
-				for(int i = 0; i < images.length - 1; i++) {
+				for(int i = 0; i < images.length; i++) {
 					if(token.getImageString().equals(images[i])) {
 						t = new Image("File:" + token.getImageString().equals(images[i]));
 						tV = token.getImageSettings();
@@ -895,6 +910,67 @@ public class Main extends Application {
 			this.isValid = isValid;
 		}
 	}
+	public class QueenB implements ChessPiece {
+		private String token;
+		private boolean isValid = false;
+		private int indexOne, indexTwo;
+		private Image t;
+		private ImageView tV;
+		
+		public QueenB(int indexOne, int indexTwo) {
+			this.indexOne = indexOne;
+			this.indexTwo = indexTwo;
+			
+			token = queen_b;
+			t = new Image("File:" + token); 
+			
+			tV = new ImageView();
+			
+			tV.setFitHeight(50);
+			tV.setFitWidth(45);
+			tV.setTranslateX(10);
+			tV.setTranslateY(7);
+			
+			tV.setImage(t);
+			
+			
+		}
+		
+		public Image getImage() {
+			return t;
+		}
+		public void setImage(Image t) {
+			this.t = t;
+		}
+		public String getImageString() {
+			return token;
+		}
+		public void setImageString(String token) {
+			this.token = token;
+		}
+
+		public ImageView getImageSettings() {
+			return tV;
+		}
+		public int getIndexOne() {
+			return indexOne;
+		}
+		public void setIndexOne(int indexOne) {
+			this.indexOne = indexOne;
+		}
+		public int getIndexTwo() {
+			return indexTwo;
+		}
+		public void setIndexTwo(int indexTwo) {
+			this.indexTwo = indexTwo;
+		}
+		public boolean getIsValid() {
+			return isValid;
+		}
+		public void setIsValid(boolean isValid) {
+			this.isValid = isValid;
+		}
+	}
 	public class QueenW implements ChessPiece {
 		private String token;
 		private boolean isValid = false;
@@ -956,7 +1032,6 @@ public class Main extends Application {
 			this.isValid = isValid;
 		}
 	}
-	
 	
 	public static void main(String[] args) {
 		launch(args);

@@ -212,6 +212,17 @@ public class Main extends Application {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
+			} else if(history.getImageString().equals(queen_w)) {
+				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
+					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
+						history.setIsValid(true);
+						cell[histIndOne][histIndTwo].setToken(null);
+					}
+				} else if(indexOne == histIndOne || indexTwo == histIndTwo) {
+					history.setIsValid(true);
+					cell[histIndOne][histIndTwo].setToken(null);
+				}
+				
 			}
 			System.out.println(indexTwo <= histIndTwo - 2);
 			

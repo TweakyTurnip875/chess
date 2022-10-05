@@ -200,9 +200,15 @@ public class Main extends Application {
 					
 				
 					for(int i = histIndTwo + 1; i < indexTwo; i++) {
-						System.out.println(cell[0][i].getToken() == null);
 						
-						if(cell[0][i].getToken() != null) {
+						if(cell[histIndOne][i].getToken() != null) {
+							valid = false;
+
+						}
+					} 
+					for(int i = histIndOne + 1; i < indexOne; i++) {
+						
+						if(cell[i][histIndTwo].getToken() != null) {
 							valid = false;
 
 						}
@@ -218,11 +224,45 @@ public class Main extends Application {
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
 			} else if(history.getImageString().equals(bishop_w) || history.getImageString().equals(bishop_b)) {
+				
+
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
-						cell[histIndOne][histIndTwo].setToken(null);
-						history.setIsValid(true);
+						int rOffset, cOffset;
+						
+						
+						boolean checkValid = true;
+						
+						if(histIndOne < indexOne) {
+							cOffset = 1;
+						} else {
+							cOffset = -1;
+						}
+						
+						if(histIndTwo < indexTwo) {
+							rOffset = 1;
+						} else {
+							rOffset = -1;
+						}
+						
+						int y = histIndOne + cOffset;
+						for(int x = histIndTwo + rOffset; x != indexTwo; x += rOffset) {
+							System.out.println(y + " " + x);
+							
+							if(cell[y][x].getToken() != null) {
+								checkValid = false;
+								break;
+							}
+							y += cOffset;
+						}
 
+						
+						if(checkValid) {
+							history.setIsValid(true);
+							cell[histIndOne][histIndTwo].setToken(null);
+						}
+						
+						
 					}
 				}
 			} else if(history.getImageString().equals(king_w) || history.getImageString().equals(king_b)) {

@@ -304,12 +304,79 @@ public class Main extends Application {
 			} else if(history.getImageString().equals(queen_w) || history.getImageString().equals(queen_b)) {
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
+						int rOffset, cOffset;
+						
+						
+						boolean checkValid = true;
+						
+						if(histIndOne < indexOne) {
+							cOffset = 1;
+						} else {
+							cOffset = -1;
+						}
+						
+						if(histIndTwo < indexTwo) {
+							rOffset = 1;
+						} else {
+							rOffset = -1;
+						}
+						
+						int y = histIndOne + cOffset;
+						for(int x = histIndTwo + rOffset; x != indexTwo; x += rOffset) {
+							System.out.println(y + " " + x);
+							
+							if(cell[y][x].getToken() != null) {
+								checkValid = false;
+								break;
+							}
+							y += cOffset;
+						}
+
+						
+						if(checkValid) {
+							history.setIsValid(true);
+							cell[histIndOne][histIndTwo].setToken(null);
+						}
+					}
+				} else if(indexOne == histIndOne || indexTwo == histIndTwo) {
+					boolean checkValid = true;
+					
+
+					for(int i = histIndTwo + 1; i < indexTwo; i++) {
+
+							
+						if(cell[histIndOne][i].getToken() != null) {
+							checkValid = false;
+	
+						}
+					} 
+						
+					for(int i = histIndTwo - 1; i > indexTwo; i--) {
+							
+						if(cell[histIndOne][i].getToken() != null) {
+							checkValid = false;
+	
+						}
+					} 
+						
+					for(int i = histIndOne + 1; i < indexOne; i++) {
+						
+						if(cell[i][histIndTwo].getToken() != null) {
+							checkValid = false;
+
+						}
+					} 
+					for(int i = histIndOne - 1; i > indexOne; i--) {
+						
+						if(cell[i][histIndTwo].getToken() != null) {
+							checkValid = false;
+
+						}
+					} 
+					if(checkValid) {
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
-				} else if(indexOne == histIndOne || indexTwo == histIndTwo) {
-					history.setIsValid(true);
-					cell[histIndOne][histIndTwo].setToken(null);
 				}
 				
 			}

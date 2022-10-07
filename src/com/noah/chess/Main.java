@@ -185,27 +185,50 @@ public class Main extends Application {
 				//System.out.println(indexOne == histIndOne);
 				if(histIndTwo == 6) {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1)) {
-						history.setIsValid(true); // allows piece to move if it meets the requirements
-						cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
-					}
+						boolean checkValid = true;
+
+						
+						if(cell[indexOne][5].getToken() != null) {
+							checkValid = false;
+						} else {
+							checkValid = true;
+						}
+						
+						history.setIsValid(checkValid); // allows piece to move if it meets the requirements
+						
+						if(checkValid) {
+							cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+						}
+						
+					}	
 				} else {
 					if(indexOne == histIndOne && indexTwo == histIndTwo - 1) {
-						history.setIsValid(true); // allows piece to move if it meets the requirements
-						cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+						history.setIsValid(true);
+						cell[histIndOne][histIndTwo].setToken(null);
 					}
 				}
 			} else if(history.getImageString().equals(rook_w) || history.getImageString().equals(rook_b)) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
 					boolean valid = true;
 					
-				
+
 					for(int i = histIndTwo + 1; i < indexTwo; i++) {
-						
+
+							
 						if(cell[histIndOne][i].getToken() != null) {
 							valid = false;
-
+	
 						}
 					} 
+						
+					for(int i = histIndTwo - 1; i > indexTwo; i--) {
+							
+						if(cell[histIndOne][i].getToken() != null) {
+							valid = false;
+	
+						}
+					} 
+						
 					for(int i = histIndOne + 1; i < indexOne; i++) {
 						
 						if(cell[i][histIndTwo].getToken() != null) {
@@ -213,6 +236,14 @@ public class Main extends Application {
 
 						}
 					} 
+					for(int i = histIndOne - 1; i > indexOne; i--) {
+						
+						if(cell[i][histIndTwo].getToken() != null) {
+							valid = false;
+
+						}
+					} 
+					
 					history.setIsValid(valid);
 					if(history.getIsValid()) {
 						cell[histIndOne][histIndTwo].setToken(null);
@@ -273,20 +304,100 @@ public class Main extends Application {
 			} else if(history.getImageString().equals(queen_w) || history.getImageString().equals(queen_b)) {
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
+						int rOffset, cOffset;
+						
+						
+						boolean checkValid = true;
+						
+						if(histIndOne < indexOne) {
+							cOffset = 1;
+						} else {
+							cOffset = -1;
+						}
+						
+						if(histIndTwo < indexTwo) {
+							rOffset = 1;
+						} else {
+							rOffset = -1;
+						}
+						
+						int y = histIndOne + cOffset;
+						for(int x = histIndTwo + rOffset; x != indexTwo; x += rOffset) {
+							System.out.println(y + " " + x);
+							
+							if(cell[y][x].getToken() != null) {
+								checkValid = false;
+								break;
+							}
+							y += cOffset;
+						}
+
+						
+						if(checkValid) {
+							history.setIsValid(true);
+							cell[histIndOne][histIndTwo].setToken(null);
+						}
+					}
+				} else if(indexOne == histIndOne || indexTwo == histIndTwo) {
+					boolean checkValid = true;
+					
+
+					for(int i = histIndTwo + 1; i < indexTwo; i++) {
+
+							
+						if(cell[histIndOne][i].getToken() != null) {
+							checkValid = false;
+	
+						}
+					} 
+						
+					for(int i = histIndTwo - 1; i > indexTwo; i--) {
+							
+						if(cell[histIndOne][i].getToken() != null) {
+							checkValid = false;
+	
+						}
+					} 
+						
+					for(int i = histIndOne + 1; i < indexOne; i++) {
+						
+						if(cell[i][histIndTwo].getToken() != null) {
+							checkValid = false;
+
+						}
+					} 
+					for(int i = histIndOne - 1; i > indexOne; i--) {
+						
+						if(cell[i][histIndTwo].getToken() != null) {
+							checkValid = false;
+
+						}
+					} 
+					if(checkValid) {
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
-				} else if(indexOne == histIndOne || indexTwo == histIndTwo) {
-					history.setIsValid(true);
-					cell[histIndOne][histIndTwo].setToken(null);
 				}
 				
 			}
 			if(history.getImageString().equals(pawn_b)) {
 				if(histIndTwo == 1) {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo + 2 || indexTwo == histIndTwo + 1)) {
-						history.setIsValid(true); 
-						cell[histIndOne][histIndTwo].setToken(null);
+						boolean checkValid = true;
+
+						
+						if(cell[indexOne][2].getToken() != null) {
+							checkValid = false;
+						} else {
+							checkValid = true;
+						}
+						
+						history.setIsValid(checkValid); // allows piece to move if it meets the requirements
+						
+						if(checkValid) {
+							cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+						}
+						
 					}
 				} else {
 					if(indexOne == histIndOne && indexTwo == histIndTwo + 1) {

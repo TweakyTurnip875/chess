@@ -198,14 +198,25 @@ public class Main extends Application {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
 					boolean valid = true;
 					
-				
+
 					for(int i = histIndTwo + 1; i < indexTwo; i++) {
-						
+
+							
 						if(cell[histIndOne][i].getToken() != null) {
 							valid = false;
-
+	
 						}
 					} 
+						
+					for(int i = histIndTwo - 1; i > indexTwo; i--) {
+						System.out.println(i);
+							
+						if(cell[histIndOne][i].getToken() != null) {
+							valid = false;
+	
+						}
+					} 
+						
 					for(int i = histIndOne + 1; i < indexOne; i++) {
 						
 						if(cell[i][histIndTwo].getToken() != null) {
@@ -213,6 +224,15 @@ public class Main extends Application {
 
 						}
 					} 
+					for(int i = histIndOne - 1; i > indexOne; i--) {
+						System.out.println(cell[histIndOne][i].getToken() != null);
+						
+						if(cell[i][histIndTwo].getToken() != null) {
+							valid = false;
+
+						}
+					} 
+					
 					history.setIsValid(valid);
 					if(history.getIsValid()) {
 						cell[histIndOne][histIndTwo].setToken(null);

@@ -209,7 +209,6 @@ public class Main extends Application {
 					} 
 						
 					for(int i = histIndTwo - 1; i > indexTwo; i--) {
-						System.out.println(i);
 							
 						if(cell[histIndOne][i].getToken() != null) {
 							valid = false;
@@ -225,7 +224,6 @@ public class Main extends Application {
 						}
 					} 
 					for(int i = histIndOne - 1; i > indexOne; i--) {
-						System.out.println(cell[histIndOne][i].getToken() != null);
 						
 						if(cell[i][histIndTwo].getToken() != null) {
 							valid = false;

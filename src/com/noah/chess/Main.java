@@ -209,14 +209,14 @@ public class Main extends Application {
 				}
 			} else if(history.getImageString().equals(rook_w) || history.getImageString().equals(rook_b)) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
-					boolean valid = true;
+					boolean checkValid = true;
 					
 
 					for(int i = histIndTwo + 1; i < indexTwo; i++) {
 
 							
 						if(cell[histIndOne][i].getToken() != null) {
-							valid = false;
+							checkValid = false;
 	
 						}
 					} 
@@ -224,7 +224,7 @@ public class Main extends Application {
 					for(int i = histIndTwo - 1; i > indexTwo; i--) {
 							
 						if(cell[histIndOne][i].getToken() != null) {
-							valid = false;
+							checkValid = false;
 	
 						}
 					} 
@@ -232,19 +232,19 @@ public class Main extends Application {
 					for(int i = histIndOne + 1; i < indexOne; i++) {
 						
 						if(cell[i][histIndTwo].getToken() != null) {
-							valid = false;
+							checkValid = false;
 
 						}
 					} 
 					for(int i = histIndOne - 1; i > indexOne; i--) {
 						
 						if(cell[i][histIndTwo].getToken() != null) {
-							valid = false;
+							checkValid = false;
 
 						}
 					} 
 					
-					history.setIsValid(valid);
+					history.setIsValid(checkValid);
 					if(history.getIsValid()) {
 						cell[histIndOne][histIndTwo].setToken(null);
 					}

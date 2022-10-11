@@ -185,7 +185,7 @@ public class Main extends Application {
 
 			
 			//if the piece to move is in the same column and is equal to its current space - 1
-			if(history.getImageString().equals(pawn_w)) {
+			if(history.getImageString().equals(pawn_w) && turn == 'W') {
 				//System.out.println(indexOne == histIndOne);
 				if(histIndTwo == 6) {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1)) {
@@ -211,7 +211,7 @@ public class Main extends Application {
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
 				}
-			} else if(history.getImageString().equals(rook_w) || history.getImageString().equals(rook_b)) {
+			} else if((history.getImageString().equals(rook_w) && turn == 'W') || (history.getImageString().equals(rook_b) && turn == 'B')) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
 					boolean checkValid = true;
 					
@@ -253,12 +253,12 @@ public class Main extends Application {
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
 				}
-			} else if(history.getImageString().equals(knight_w) || history.getImageString().equals(knight_b)) {
+			} else if((history.getImageString().equals(knight_w) && turn == 'W') || (history.getImageString().equals(knight_b) && turn == 'B')) {
 				if(((knightConds[0] ||knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			} else if(history.getImageString().equals(bishop_w) || history.getImageString().equals(bishop_b)) {
+			} else if((history.getImageString().equals(bishop_w) && turn == 'W') || (history.getImageString().equals(bishop_b) && turn == 'B')) {
 				
 
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
@@ -300,12 +300,12 @@ public class Main extends Application {
 						
 					}
 				}
-			} else if(history.getImageString().equals(king_w) || history.getImageString().equals(king_b)) {
+			} else if((history.getImageString().equals(king_w) && turn == 'W') || (history.getImageString().equals(king_b) && turn == 'B')) {
 				if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			} else if(history.getImageString().equals(queen_w) || history.getImageString().equals(queen_b)) {
+			} else if((history.getImageString().equals(queen_w) && turn == 'W') || (history.getImageString().equals(queen_b) && turn == 'B')) {
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
 						int rOffset, cOffset;
@@ -384,7 +384,7 @@ public class Main extends Application {
 				}
 				
 			}
-			if(history.getImageString().equals(pawn_b)) {
+			if(history.getImageString().equals(pawn_b) && turn == 'B') {
 				if(histIndTwo == 1) {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo + 2 || indexTwo == histIndTwo + 1)) {
 						boolean checkValid = true;
@@ -418,6 +418,9 @@ public class Main extends Application {
 				
 				// sets the space to move tos token with the piece to move
 				cell[indexOne][indexTwo].setToken(history);
+				
+				char newTurn = turn == 'W' ? 'B' : turn == 'B' ? 'W' : 'B';
+				turn = newTurn;
 			}
 			// makes sure the piece can't move into any invalid spaces after isValid is set to true
 			history.setIsValid(false);

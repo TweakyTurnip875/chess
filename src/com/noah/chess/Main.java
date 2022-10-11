@@ -32,6 +32,8 @@ public class Main extends Application {
 		   king_b = "images/black/king_b.png";
 	
 	String[] images = {pawn_w, pawn_b, rook_w, rook_b, knight_w, knight_b, bishop_w, bishop_b, king_w, king_b, queen_w, queen_b};
+	String[] imagesWhite = {pawn_w, rook_w, knight_w, bishop_w, king_w, queen_w};
+	String[] imagesBlack = {pawn_b, rook_b, knight_b, bishop_b, king_b, queen_b};
 	
 	private char turn = 'W';
 	Cell[][] cell = new Cell[8][8];

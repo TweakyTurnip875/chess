@@ -144,7 +144,23 @@ public class Main extends Application {
 		public void handleSelection() throws FileNotFoundException {
 			
 			if(token != null) {
-				history = (ChessPiece)cell[indexOne][indexTwo].getToken();
+				if(turn == 'W') {
+					for(int i = 0; i < imagesWhite.length; i++) {
+						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesWhite[i])) {
+							history = cell[indexOne][indexTwo].getToken();
+							break;
+						}
+					}
+				} else if(turn == 'B') {
+					for(int i = 0; i < imagesBlack.length; i++) {
+						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesBlack[i])) {
+							history = cell[indexOne][indexTwo].getToken();
+							break;
+						}
+					}
+				}
+				
+
 				
 				histIndOne = history.getIndexOne();
 				histIndTwo = history.getIndexTwo();
@@ -419,6 +435,20 @@ public class Main extends Application {
 				// sets the space to move tos token with the piece to move
 				cell[indexOne][indexTwo].setToken(history);
 				
+				if(turn == 'W') {
+					
+					for(int i = 0; i < imagesBlack.length; i++) {
+						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesBlack[i])) {
+							cell[indexOne][indexTwo].setToken(history);
+							
+							imagesBlack[i] = null;
+							
+						}
+					}
+					getChildren().clear();
+					handleToken();
+				}
+				
 				char newTurn = turn == 'W' ? 'B' : turn == 'B' ? 'W' : 'B';
 				turn = newTurn;
 			}
@@ -435,15 +465,24 @@ public class Main extends Application {
 			
 			
 			if(token != null) {
-				for(int i = 0; i < images.length; i++) {
-					if(token.getImageString().equals(images[i])) {
-						t = new Image("File:" + token.getImageString().equals(images[i]));
+				
+				for(int i = 0; i < imagesWhite.length; i++) {
+					if(token.getImageString().equals(imagesWhite[i])) {
+						t = new Image("File:" + token.getImageString().equals(imagesWhite[i]));
+						tV = token.getImageSettings();
+						
+						getChildren().add(tV);
+						
+					}
+				}
+				for(int i = 0; i < imagesBlack.length; i++) {
+					if(token.getImageString().equals(imagesBlack[i])) {
+						t = new Image("File:" + token.getImageString().equals(imagesBlack[i]));
 						tV = token.getImageSettings();
 						
 						getChildren().add(tV);
 					}
 				}
-				
 			}
 		}
 		

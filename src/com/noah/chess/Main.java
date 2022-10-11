@@ -31,6 +31,8 @@ public class Main extends Application {
 		   queen_b = "images/black/queen_b.png",
 		   king_b = "images/black/king_b.png";
 	
+	String[] images = {pawn_w, pawn_b, rook_w, rook_b, knight_w, knight_b, bishop_w, bishop_b, king_w, king_b, queen_w, queen_b};
+	
 	private char turn = 'W';
 	Cell[][] cell = new Cell[8][8];
 	
@@ -425,7 +427,7 @@ public class Main extends Application {
 			return indexTwo;
 		}
 		public void handleToken() throws FileNotFoundException {
-			String[] images = {pawn_w, pawn_b, rook_w, rook_b, knight_w, knight_b, bishop_w, bishop_b, king_w, king_b, queen_w, queen_b};
+			
 			
 			if(token != null) {
 				for(int i = 0; i < images.length; i++) {

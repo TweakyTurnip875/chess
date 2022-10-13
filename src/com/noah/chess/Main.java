@@ -15,6 +15,10 @@ import javafx.scene.text.Text;
 import javafx.scene.input.*;
 import javafx.event.*;
 
+import com.noah.chess.pieces.*;
+import com.noah.chess.pieces.black.*;
+import com.noah.chess.pieces.white.*;
+
 public class Main extends Application {
 	
 	String pawn_w = "images/white/pawn_w.png",
@@ -69,8 +73,8 @@ public class Main extends Application {
 			
 		}
 		for(int i = 0; i < 8; i++) {
-			cell[i][1].setToken(new PawnB(i, 1));
-			cell[i][6].setToken(new PawnW(i, 6));
+			cell[i][1].setToken(new PawnB(i, 1, pawn_b));
+			cell[i][6].setToken(new PawnW(i, 6, pawn_w));
 		}
 		
 		cell[0][0].setToken(new RookB(0, 0));
@@ -497,143 +501,82 @@ public class Main extends Application {
 		}
 
 	}
-	public interface ChessPiece {
-		
-		public int getIndexOne();
-		public boolean getIsValid();
-		public void setIsValid(boolean isValid);
-		public void setIndexOne(int indexOne);
-		public int getIndexTwo();
-		public void setIndexTwo(int indexTwo);
-		public Image getImage();
-		public void setImage(Image t);
-		public String getImageString();
-		public void setImageString(String token);
-		public ImageView getImageSettings();
-	}
+//	public interface ChessPiece {
+//		
+//		public int getIndexOne();
+//		public boolean getIsValid();
+//		public void setIsValid(boolean isValid);
+//		public void setIndexOne(int indexOne);
+//		public int getIndexTwo();
+//		public void setIndexTwo(int indexTwo);
+//		public Image getImage();
+//		public void setImage(Image t);
+//		public String getImageString();
+//		public void setImageString(String token);
+//		public ImageView getImageSettings();
+//	}
 
-	public class PawnW implements ChessPiece {
-		private String token;
-		private boolean isValid = false;
-		private int indexOne, indexTwo;
-		private Image t;
-		private ImageView tV;
-		
-		public PawnW(int indexOne, int indexTwo) {
-			this.indexOne = indexOne;
-			this.indexTwo = indexTwo;
-			
-			token = pawn_w;
-			t = new Image("File:" + token); 
-			
-			tV = new ImageView();
-			
-			tV.setFitHeight(45);
-			tV.setFitWidth(40);
-			tV.setTranslateX(10);
-			tV.setTranslateY(7);
-			
-			tV.setImage(t);
-			
-			
-		}
-		
-		public Image getImage() {
-			return t;
-		}
-		public void setImage(Image t) {
-			this.t = t;
-		}
-		public String getImageString() {
-			return token;
-		}
-		public void setImageString(String token) {
-			this.token = token;
-		}
 
-		public ImageView getImageSettings() {
-			return tV;
-		}
-		public int getIndexOne() {
-			return indexOne;
-		}
-		public void setIndexOne(int indexOne) {
-			this.indexOne = indexOne;
-		}
-		public int getIndexTwo() {
-			return indexTwo;
-		}
-		public void setIndexTwo(int indexTwo) {
-			this.indexTwo = indexTwo;
-		}
-		public boolean getIsValid() {
-			return isValid;
-		}
-		public void setIsValid(boolean isValid) {
-			this.isValid = isValid;
-		}
-		
-	}
-	public class PawnB implements ChessPiece {
-		private String token;
-		private boolean isValid = false;
-		private int indexOne, indexTwo;
-		private Image t;
-		private ImageView tV;
-		
-		public PawnB(int indexOne, int indexTwo) {
-			this.indexOne = indexOne;
-			this.indexTwo = indexTwo;
-			
-			token = pawn_b;
-			t = new Image("File:" + token); 
-			
-			tV = new ImageView();
-			
-			tV.setFitHeight(45);
-			tV.setFitWidth(40);
-			tV.setTranslateX(10);
-			tV.setTranslateY(7);
-			
-			tV.setImage(t);
-			
-			
-		}
-		
-		public Image getImage() {
-			return t;
-		}
-		public void setImage(Image t) {
-			this.t = t;
-		}
-		public String getImageString() {
-			return token;
-		}
-		public void setImageString(String token) {
-			this.token = token;
-		}
-		public ImageView getImageSettings() {
-			return tV;
-		}
-		public int getIndexOne() {
-			return indexOne;
-		}
-		public void setIndexOne(int indexOne) {
-			this.indexOne = indexOne;
-		}
-		public int getIndexTwo() {
-			return indexTwo;
-		}
-		public void setIndexTwo(int indexTwo) {
-			this.indexTwo = indexTwo;
-		}
-		public boolean getIsValid() {
-			return isValid;
-		}
-		public void setIsValid(boolean isValid) {
-			this.isValid = isValid;
-		}
-	}
+//	public class PawnB implements ChessPiece {
+//		private String token;
+//		private boolean isValid = false;
+//		private int indexOne, indexTwo;
+//		private Image t;
+//		private ImageView tV;
+//		
+//		public PawnB(int indexOne, int indexTwo) {
+//			this.indexOne = indexOne;
+//			this.indexTwo = indexTwo;
+//			
+//			token = pawn_b;
+//			t = new Image("File:" + token); 
+//			
+//			tV = new ImageView();
+//			
+//			tV.setFitHeight(45);
+//			tV.setFitWidth(40);
+//			tV.setTranslateX(10);
+//			tV.setTranslateY(7);
+//			
+//			tV.setImage(t);
+//			
+//			
+//		}
+//		
+//		public Image getImage() {
+//			return t;
+//		}
+//		public void setImage(Image t) {
+//			this.t = t;
+//		}
+//		public String getImageString() {
+//			return token;
+//		}
+//		public void setImageString(String token) {
+//			this.token = token;
+//		}
+//		public ImageView getImageSettings() {
+//			return tV;
+//		}
+//		public int getIndexOne() {
+//			return indexOne;
+//		}
+//		public void setIndexOne(int indexOne) {
+//			this.indexOne = indexOne;
+//		}
+//		public int getIndexTwo() {
+//			return indexTwo;
+//		}
+//		public void setIndexTwo(int indexTwo) {
+//			this.indexTwo = indexTwo;
+//		}
+//		public boolean getIsValid() {
+//			return isValid;
+//		}
+//		public void setIsValid(boolean isValid) {
+//			this.isValid = isValid;
+//		}
+//	}
 	public class RookW implements ChessPiece {
 		private String token;
 		private boolean isValid = false;

@@ -6,6 +6,8 @@ import javafx.scene.image.ImageView;
 public interface ChessPiece {
 	
 	public int getIndexOne();
+	public boolean getIsValid();
+	public void setIsValid(boolean isValid);
 	public void setIndexOne(int indexOne);
 	public int getIndexTwo();
 	public void setIndexTwo(int indexTwo);
@@ -14,5 +16,4 @@ public interface ChessPiece {
 	public String getImageString();
 	public void setImageString(String token);
 	public ImageView getImageSettings();
-	public boolean getIsValid();
 }

@@ -192,7 +192,6 @@ public class Main extends Application {
 			});
 			
 		}
-		
 		public void handlePlacement() throws FileNotFoundException {
 			boolean[] knightConds = {(indexOne == histIndOne - 1), 
 									  (indexOne == histIndOne + 1), 

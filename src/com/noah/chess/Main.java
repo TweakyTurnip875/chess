@@ -192,6 +192,7 @@ public class Main extends Application {
 			});
 			
 		}
+		
 		public void handlePlacement() throws FileNotFoundException {
 			boolean[] knightConds = {(indexOne == histIndOne - 1), 
 									  (indexOne == histIndOne + 1), 
@@ -449,6 +450,19 @@ public class Main extends Application {
 							
 						}
 					}
+
+					getChildren().clear();
+					handleToken();
+					
+				} else if(turn == 'B' ) {
+					for(int i = 0; i < imagesWhite.length; i++) {
+						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesWhite[i])) {
+							cell[indexOne][indexTwo].setToken(history);
+							
+							imagesWhite[i] = null;
+						}
+					}
+					
 					getChildren().clear();
 					handleToken();
 				}

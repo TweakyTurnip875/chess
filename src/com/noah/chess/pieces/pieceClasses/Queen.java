@@ -1,18 +1,18 @@
-package com.noah.chess.pieces.black;
+package com.noah.chess.pieces.pieceClasses;
 
-import com.noah.chess.pieces.*;
+import com.noah.chess.pieces.ChessPiece;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class QueenB implements ChessPiece {
+public class Queen implements ChessPiece {
 	private String token;
 	private boolean isValid = false;
 	private int indexOne, indexTwo;
 	private Image t;
 	private ImageView tV;
 	
-	public QueenB(int indexOne, int indexTwo, String token) {
+	public Queen(int indexOne, int indexTwo, String token) {
 		this.indexOne = indexOne;
 		this.indexTwo = indexTwo;
 		

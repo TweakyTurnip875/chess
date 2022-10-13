@@ -1,18 +1,18 @@
-package com.noah.chess.pieces.black;
+package com.noah.chess.pieces.pieceClasses;
 
-import com.noah.chess.pieces.*;
+import com.noah.chess.pieces.ChessPiece;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class PawnB implements ChessPiece {
+public class Rook implements ChessPiece {
 	private String token;
 	private boolean isValid = false;
 	private int indexOne, indexTwo;
 	private Image t;
 	private ImageView tV;
 	
-	public PawnB(int indexOne, int indexTwo, String token) {
+	public Rook(int indexOne, int indexTwo, String token) {
 		this.indexOne = indexOne;
 		this.indexTwo = indexTwo;
 		
@@ -22,8 +22,8 @@ public class PawnB implements ChessPiece {
 		tV = new ImageView();
 		
 		tV.setFitHeight(45);
-		tV.setFitWidth(40);
-		tV.setTranslateX(10);
+		tV.setFitWidth(35);
+		tV.setTranslateX(13);
 		tV.setTranslateY(7);
 		
 		tV.setImage(t);
@@ -43,6 +43,7 @@ public class PawnB implements ChessPiece {
 	public void setImageString(String token) {
 		this.token = token;
 	}
+
 	public ImageView getImageSettings() {
 		return tV;
 	}
@@ -65,4 +66,3 @@ public class PawnB implements ChessPiece {
 		this.isValid = isValid;
 	}
 }
-

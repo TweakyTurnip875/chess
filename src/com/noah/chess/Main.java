@@ -15,9 +15,9 @@ import javafx.scene.text.Text;
 import javafx.scene.input.*;
 import javafx.event.*;
 
-import com.noah.chess.pieces.*;
-import com.noah.chess.pieces.white.*;
-import com.noah.chess.pieces.black.*;
+import com.noah.chess.pieces.ChessPiece;
+import com.noah.chess.pieces.pieceClasses.*;
+
 
 public class Main extends Application {
 	
@@ -73,36 +73,36 @@ public class Main extends Application {
 			
 		}
 		for(int i = 0; i < 8; i++) {
-			cell[i][1].setToken(new PawnB(i, 1, pawn_b));
-			cell[i][6].setToken(new PawnW(i, 6, pawn_w));
+			cell[i][1].setToken(new Pawn(i, 1, pawn_b));
+			cell[i][6].setToken(new Pawn(i, 6, pawn_w));
 		}
 		
-		cell[0][0].setToken(new RookB(0, 0, rook_b));
-		cell[7][0].setToken(new RookB(7, 0, rook_w));
+		cell[0][0].setToken(new Rook(0, 0, rook_b));
+		cell[7][0].setToken(new Rook(7, 0, rook_w));
 		
-		cell[1][0].setToken(new KnightB(1, 0, knight_b));
-		cell[6][0].setToken(new KnightB(6, 0, knight_b));
+		cell[1][0].setToken(new Knight(1, 0, knight_b));
+		cell[6][0].setToken(new Knight(6, 0, knight_b));
 		
-		cell[2][0].setToken(new BishopB(2, 0, bishop_b));
-		cell[5][0].setToken(new BishopB(5, 0, bishop_b));
+		cell[2][0].setToken(new Bishop(2, 0, bishop_b));
+		cell[5][0].setToken(new Bishop(5, 0, bishop_b));
 		
-		cell[3][0].setToken(new KingB(3, 0, king_b));
+		cell[3][0].setToken(new King(3, 0, king_b));
 		
-		cell[4][0].setToken(new QueenB(4, 0, queen_b));
+		cell[4][0].setToken(new Queen(4, 0, queen_b));
 
 		
-		cell[0][7].setToken(new RookW(0, 7, rook_w));
-		cell[7][7].setToken(new RookW(7, 7, rook_w));
+		cell[0][7].setToken(new Rook(0, 7, rook_w));
+		cell[7][7].setToken(new Rook(7, 7, rook_w));
 		
-		cell[1][7].setToken(new KnightW(1, 7, knight_w));
-		cell[6][7].setToken(new KnightW(6, 7, knight_w));
+		cell[1][7].setToken(new Knight(1, 7, knight_w));
+		cell[6][7].setToken(new Knight(6, 7, knight_w));
 		
-		cell[2][7].setToken(new BishopW(2, 7, bishop_w));
-		cell[5][7].setToken(new BishopW(5, 7, bishop_w));
+		cell[2][7].setToken(new Bishop(2, 7, bishop_w));
+		cell[5][7].setToken(new Bishop(5, 7, bishop_w));
 		
-		cell[3][7].setToken(new KingW(3, 7, king_w));
+		cell[3][7].setToken(new King(3, 7, king_w));
 		
-		cell[4][7].setToken(new QueenW(4, 7, queen_w));
+		cell[4][7].setToken(new Queen(4, 7, queen_w));
 		
 		
 		

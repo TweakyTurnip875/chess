@@ -1,18 +1,18 @@
-package com.noah.chess.pieces.white;
+package com.noah.chess.pieces.pieceClasses;
 
-import com.noah.chess.pieces.*;
+import com.noah.chess.pieces.ChessPiece;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class RookW implements ChessPiece {
+public class King implements ChessPiece {
 	private String token;
 	private boolean isValid = false;
 	private int indexOne, indexTwo;
 	private Image t;
 	private ImageView tV;
 	
-	public RookW(int indexOne, int indexTwo, String token) {
+	public King(int indexOne, int indexTwo, String token) {
 		this.indexOne = indexOne;
 		this.indexTwo = indexTwo;
 		
@@ -21,9 +21,9 @@ public class RookW implements ChessPiece {
 		
 		tV = new ImageView();
 		
-		tV.setFitHeight(45);
-		tV.setFitWidth(35);
-		tV.setTranslateX(13);
+		tV.setFitHeight(50);
+		tV.setFitWidth(45);
+		tV.setTranslateX(10);
 		tV.setTranslateY(7);
 		
 		tV.setImage(t);

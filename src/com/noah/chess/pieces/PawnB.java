@@ -1,4 +1,4 @@
-package com.noah.chess.pieces.black;
+package com.noah.chess.pieces;
 
 import com.noah.chess.pieces.ChessPiece;
 
@@ -6,17 +6,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class PawnB implements ChessPiece {
-	private String token;
-	private boolean isValid = false;
+	private String token = "images/black/pawn_b.png";
 	private int indexOne, indexTwo;
 	private Image t;
 	private ImageView tV;
+	private boolean isValid = true;
 	
-	public PawnB(int indexOne, int indexTwo, String token) {
+	public PawnB(int indexOne, int indexTwo) {
 		this.indexOne = indexOne;
 		this.indexTwo = indexTwo;
 		
-		this.token = token;
 		t = new Image("File:" + token); 
 		
 		tV = new ImageView();
@@ -50,18 +49,29 @@ public class PawnB implements ChessPiece {
 		return indexOne;
 	}
 	public void setIndexOne(int indexOne) {
-		this.indexOne = indexOne;
+		if(indexOne == this.indexOne) {
+			isValid = true;
+			this.indexOne = indexOne;
+		} else {
+			isValid = false;
+			System.out.println("invalid");
+		}
+
 	}
 	public int getIndexTwo() {
 		return indexTwo;
 	}
 	public void setIndexTwo(int indexTwo) {
-		this.indexTwo = indexTwo;
+		if(indexTwo == indexTwo++) {
+			isValid = true;
+			this.indexTwo = indexTwo;
+		} else {
+			isValid = false;
+			System.out.println("invalid");
+		}
 	}
 	public boolean getIsValid() {
 		return isValid;
 	}
-	public void setIsValid(boolean isValid) {
-		this.isValid = isValid;
-	}
+	
 }

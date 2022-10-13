@@ -78,7 +78,7 @@ public class Main extends Application {
 		}
 		
 		cell[0][0].setToken(new Rook(0, 0, rook_b));
-		cell[7][0].setToken(new Rook(7, 0, rook_w));
+		cell[7][0].setToken(new Rook(7, 0, rook_b));
 		
 		cell[1][0].setToken(new Knight(1, 0, knight_b));
 		cell[6][0].setToken(new Knight(6, 0, knight_b));

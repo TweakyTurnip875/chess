@@ -150,13 +150,16 @@ public class Main extends Application {
 			if(k.getImageString().equals(king_w)) {
 				if(indexOne == k.getIndexOne()) {
 					for(int i = histIndTwo + 1; i < k.getIndexTwo() - 1; i++) {
-						if(cell[histIndOne][i].getToken() == null) {
-						
+						if(cell[indexOne][i].getToken() == null) {
+							System.out.println(true);
+							
 							k.setIsChecked(true);
 							k.setCheckedBy(rook_b);
 						
-							System.out.println(i);
-						} else if(cell[histIndOne][i].getToken() != null)  {
+							
+						} else if(cell[indexOne][i].getToken() != null)  {
+							System.out.println(indexOne + " " + i);
+							
 							k.setIsChecked(false);
 							k.setCheckedBy(null);
 							
@@ -165,6 +168,7 @@ public class Main extends Application {
 	
 					}
 				}
+				
 			}
 			if(k.getImageString().equals(king_b)) {
 				if(histIndOne == k.getIndexOne()) {
@@ -335,8 +339,6 @@ public class Main extends Application {
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
 					
-					handleCheckRook(kingWhite);
-					handleCheckRook(kingBlack);
 					
 					
 					//System.out.println(kingBlack.getIsChecked() || kingWhite.getIsChecked());
@@ -391,7 +393,6 @@ public class Main extends Application {
 			} else if((history.getImageString().equals(king_w) && turn == 'W') || (history.getImageString().equals(king_b) && turn == 'B')) {
 				if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
 					if(kingBlack.getIsChecked() || kingWhite.getIsChecked()) {
-						System.out.println(true);
 						if(kingBlack.getCheckedBy().equals(rook_w) || kingWhite.getCheckedBy().equals(rook_b)) {
 							if((indexOne == histIndOne + 1 || indexOne == histIndOne - 1)) {
 								history.setIsValid(true);

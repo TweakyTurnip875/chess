@@ -11,7 +11,7 @@ public class King implements ChessPiece {
 	private int indexOne, indexTwo;
 	private Image t;
 	private ImageView tV;
-	private String checkedBy = null;
+	private String checkedBy = "";
 	
 	private boolean isChecked = false;
 	

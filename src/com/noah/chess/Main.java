@@ -515,7 +515,13 @@ public class Main extends Application {
 						
 					}
 				} else {
-					if(indexOne == histIndOne && indexTwo == histIndTwo + 1) {
+					if(indexOne == histIndOne && indexTwo == histIndTwo + 1 && cell[indexOne][indexTwo].getToken() == null) {
+						history.setIsValid(true); 
+						cell[histIndOne][histIndTwo].setToken(null); 
+					}
+				}
+				if((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo == histIndTwo + 1) {
+					if(cell[indexOne][indexTwo].getToken() != null) {
 						history.setIsValid(true); 
 						cell[histIndOne][histIndTwo].setToken(null); 
 					}
@@ -544,7 +550,7 @@ public class Main extends Application {
 					getChildren().clear();
 					handleToken();
 					
-				} else if(turn == 'B' ) {
+				} else if(turn == 'B') {
 					for(int i = 0; i < imagesWhite.length; i++) {
 						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesWhite[i])) {
 							cell[indexOne][indexTwo].setToken(history);

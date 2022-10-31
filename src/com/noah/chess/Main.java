@@ -145,8 +145,50 @@ public class Main extends Application {
 				}
 			});
 		}
-		public void handleSelection() throws FileNotFoundException {
+		private void handleCheckRook(King k) {
+
+				if(indexOne == k.getIndexOne()) {
+					for(int i = indexTwo + 1; i < k.getIndexTwo() - 1; i++) {
+						if(cell[indexOne][i].getToken() == null) {
+							
+							k.setIsChecked(true);
+							k.setCheckedBy(rook_b);
+						
+							
+						} else if(cell[indexOne][i].getToken() != null)  {
+							
+							k.setIsChecked(false);
+							k.setCheckedBy(null);
+							
+							break;
+						}
+	
+					}
+				}
+				
 			
+				if(indexOne == k.getIndexOne()) {
+					for(int i = indexTwo - 1; i > k.getIndexTwo() + 1; i--) {
+						if(cell[indexOne][i].getToken() == null) {
+						
+							k.setIsChecked(true);
+							k.setCheckedBy(rook_w);
+						//System.out.println(i);
+						} else if(cell[indexOne][i].getToken() != null)  {
+							k.setIsChecked(false);
+							k.setCheckedBy(null);
+							
+							break;
+						}
+	
+					}
+				}
+			
+		}
+
+		
+		public void handleSelection() throws FileNotFoundException {
+
 			if(token != null) {
 				if(turn == 'W') {
 					for(int i = 0; i < imagesWhite.length; i++) {
@@ -203,10 +245,22 @@ public class Main extends Application {
 									  (indexTwo == histIndTwo - 1),
 									  (indexTwo == histIndTwo + 1)};
 			
-
+			King kingWhite = null, kingBlack = null;
+			
+			for(int i = 0; i < 8; i++) {
+				for(int j = 0; j < 8; j++) {
+					if(cell[i][j].getToken() != null) {
+						if(cell[i][j].getToken().getImageString().equals(king_w)) {
+							kingWhite = (King) cell[i][j].getToken();
+						} else if(cell[i][j].getToken().getImageString().equals(king_b)) {
+							kingBlack = (King) cell[i][j].getToken();
+						}
+					}
+				}
+			}
 			
 			//if the piece to move is in the same column and is equal to its current space - 1
-			if(history.getImageString().equals(pawn_w) && turn == 'W') {
+			if(history.getImageString().equals(pawn_w) && turn == 'W' && kingWhite.getIsChecked() == false) {
 				//System.out.println(indexOne == histIndOne);
 				if(histIndTwo == 6) {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1)) {
@@ -232,18 +286,20 @@ public class Main extends Application {
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
 				}
-			} else if((history.getImageString().equals(rook_w) && turn == 'W') || (history.getImageString().equals(rook_b) && turn == 'B')) {
+			} else if((history.getImageString().equals(rook_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(rook_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
 					boolean checkValid = true;
+					boolean vertical = false;
 					
-
+					
 					for(int i = histIndTwo + 1; i < indexTwo; i++) {
-
+						
 							
 						if(cell[histIndOne][i].getToken() != null) {
 							checkValid = false;
 	
 						}
+						vertical = true;
 					} 
 						
 					for(int i = histIndTwo - 1; i > indexTwo; i--) {
@@ -252,6 +308,7 @@ public class Main extends Application {
 							checkValid = false;
 	
 						}
+						vertical = true;
 					} 
 						
 					for(int i = histIndOne + 1; i < indexOne; i++) {
@@ -260,6 +317,7 @@ public class Main extends Application {
 							checkValid = false;
 
 						}
+						vertical = false;
 					} 
 					for(int i = histIndOne - 1; i > indexOne; i--) {
 						
@@ -267,19 +325,32 @@ public class Main extends Application {
 							checkValid = false;
 
 						}
+						vertical = false;
 					} 
+					
+					
+					
+					handleCheckRook(kingWhite);
+					handleCheckRook(kingBlack);
+					
+					
 					
 					history.setIsValid(checkValid);
 					if(history.getIsValid()) {
+						
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
+					
+					
+					
+					//System.out.println(kingBlack.getIsChecked() || kingWhite.getIsChecked());
 				}
-			} else if((history.getImageString().equals(knight_w) && turn == 'W') || (history.getImageString().equals(knight_b) && turn == 'B')) {
+			} else if((history.getImageString().equals(knight_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(knight_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				if(((knightConds[0] ||knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 				}
-			} else if((history.getImageString().equals(bishop_w) && turn == 'W') || (history.getImageString().equals(bishop_b) && turn == 'B')) {
+			} else if((history.getImageString().equals(bishop_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(bishop_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				
 
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
@@ -323,10 +394,29 @@ public class Main extends Application {
 				}
 			} else if((history.getImageString().equals(king_w) && turn == 'W') || (history.getImageString().equals(king_b) && turn == 'B')) {
 				if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
-					history.setIsValid(true);
-					cell[histIndOne][histIndTwo].setToken(null);
+					if(kingBlack.getIsChecked() || kingWhite.getIsChecked()) {
+						if(kingBlack.getCheckedBy().equals(rook_w) || kingWhite.getCheckedBy().equals(rook_b)) {
+							if((indexOne == histIndOne + 1 || indexOne == histIndOne - 1)) {
+								history.setIsValid(true);
+								cell[histIndOne][histIndTwo].setToken(null);
+								
+								if(kingBlack.getIsChecked()) {
+									kingBlack.setIsChecked(false);
+									kingBlack.setCheckedBy(null);
+								} else {
+									kingWhite.setIsChecked(false);
+									kingWhite.setCheckedBy(null);
+								}
+							}
+
+						}
+
+					} else {
+						history.setIsValid(true);
+						cell[histIndOne][histIndTwo].setToken(null);
+					}
 				}
-			} else if((history.getImageString().equals(queen_w) && turn == 'W') || (history.getImageString().equals(queen_b) && turn == 'B')) {
+			} else if((history.getImageString().equals(queen_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(queen_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
 						int rOffset, cOffset;
@@ -405,7 +495,7 @@ public class Main extends Application {
 				}
 				
 			}
-			if(history.getImageString().equals(pawn_b) && turn == 'B') {
+			if(history.getImageString().equals(pawn_b) && turn == 'B' && kingBlack.getIsChecked() == false) {
 				if(histIndTwo == 1) {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo + 2 || indexTwo == histIndTwo + 1)) {
 						boolean checkValid = true;

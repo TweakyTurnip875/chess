@@ -11,6 +11,7 @@ public class King implements ChessPiece {
 	private int indexOne, indexTwo;
 	private Image t;
 	private ImageView tV;
+	private String checkedBy = "";
 	
 	private boolean isChecked = false;
 	
@@ -72,5 +73,13 @@ public class King implements ChessPiece {
 	}
 	public void setIsChecked(boolean isChecked) {
 		this.isChecked = isChecked;
+	}
+	public String getCheckedBy() {
+		return checkedBy;
+	}
+	public void setCheckedBy(String checkedBy) {
+		if(isChecked) {
+			this.checkedBy = checkedBy;
+		}
 	}
 }

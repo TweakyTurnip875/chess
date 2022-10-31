@@ -146,19 +146,16 @@ public class Main extends Application {
 			});
 		}
 		private void handleCheckRook(King k) {
-			
-			if(k.getImageString().equals(king_w)) {
+
 				if(indexOne == k.getIndexOne()) {
-					for(int i = histIndTwo + 1; i < k.getIndexTwo() - 1; i++) {
+					for(int i = indexTwo + 1; i < k.getIndexTwo() - 1; i++) {
 						if(cell[indexOne][i].getToken() == null) {
-							System.out.println(true);
 							
 							k.setIsChecked(true);
 							k.setCheckedBy(rook_b);
 						
 							
 						} else if(cell[indexOne][i].getToken() != null)  {
-							System.out.println(indexOne + " " + i);
 							
 							k.setIsChecked(false);
 							k.setCheckedBy(null);
@@ -169,16 +166,15 @@ public class Main extends Application {
 					}
 				}
 				
-			}
-			if(k.getImageString().equals(king_b)) {
-				if(histIndOne == k.getIndexOne()) {
-					for(int i = histIndTwo - 1; i > k.getIndexTwo() + 1; i--) {
-						if(cell[histIndOne][i].getToken() == null) {
+			
+				if(indexOne == k.getIndexOne()) {
+					for(int i = indexTwo - 1; i > k.getIndexTwo() + 1; i--) {
+						if(cell[indexOne][i].getToken() == null) {
 						
 							k.setIsChecked(true);
 							k.setCheckedBy(rook_w);
 						//System.out.println(i);
-						} else if(cell[histIndOne][i - 1].getToken() != null)  {
+						} else if(cell[indexOne][i].getToken() != null)  {
 							k.setIsChecked(false);
 							k.setCheckedBy(null);
 							
@@ -187,7 +183,7 @@ public class Main extends Application {
 	
 					}
 				}
-			} 
+			
 		}
 
 		
@@ -293,15 +289,17 @@ public class Main extends Application {
 			} else if((history.getImageString().equals(rook_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(rook_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				if(indexOne == histIndOne || indexTwo == histIndTwo) {
 					boolean checkValid = true;
+					boolean vertical = false;
 					
-
+					
 					for(int i = histIndTwo + 1; i < indexTwo; i++) {
-
+						
 							
 						if(cell[histIndOne][i].getToken() != null) {
 							checkValid = false;
 	
 						}
+						vertical = true;
 					} 
 						
 					for(int i = histIndTwo - 1; i > indexTwo; i--) {
@@ -310,6 +308,7 @@ public class Main extends Application {
 							checkValid = false;
 	
 						}
+						vertical = true;
 					} 
 						
 					for(int i = histIndOne + 1; i < indexOne; i++) {
@@ -318,6 +317,7 @@ public class Main extends Application {
 							checkValid = false;
 
 						}
+						vertical = false;
 					} 
 					for(int i = histIndOne - 1; i > indexOne; i--) {
 						
@@ -325,7 +325,9 @@ public class Main extends Application {
 							checkValid = false;
 
 						}
+						vertical = false;
 					} 
+					
 					
 					
 					handleCheckRook(kingWhite);

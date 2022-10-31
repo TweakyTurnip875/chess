@@ -281,7 +281,13 @@ public class Main extends Application {
 						
 					}	
 				} else {
-					if(indexOne == histIndOne && indexTwo == histIndTwo - 1) {
+					if(indexOne == histIndOne && indexTwo == histIndTwo - 1 && cell[indexOne][indexTwo].getToken() == null) {
+						history.setIsValid(true);
+						cell[histIndOne][histIndTwo].setToken(null);
+					}
+				}
+				if((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo == histIndTwo - 1) {
+					if(cell[indexOne][indexTwo].getToken() != null) {
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);
 					}

@@ -187,28 +187,33 @@ public class Main extends Application {
 			
 		}
 		private void handleKnightCheck(King k) {
-//			
-//			Cell arr[] = {cell[indexOne - 1][indexTwo - 2],
-//						  cell[indexOne + 1][indexTwo + 2], 
-//						  cell[indexOne - 1][indexTwo + 2], 
-//						  cell[indexOne + 1][indexTwo - 2], 
-//						  cell[indexOne - 2][indexTwo - 1], 
-//						  cell[indexOne + 2][indexTwo + 1], 
-//						  cell[indexOne - 2][indexTwo + 1], 
-//						  cell[indexOne + 2][indexTwo - 1]};
-//			
-//			
-//			
-//			for(int i = 0; i < arr.length; i++) {
-//				if(arr[i].getToken() != null) {
-//					k.setIsChecked(true);
-//
-//				} else {
-//					k.setIsChecked(false);
-//					break;
-//				}
-//			}
-//			
+			int p = indexOne;
+			int q = indexTwo;
+			
+			int X[] = {-1, -2, 1, 2, 1, -2, -1, 2};
+			int Y[] = {-2, -1, 2, 1, -2, 1, 2, -1};
+			
+			int mat[][] = {
+					{ 1, 0, 1, 0 },
+					{ 0, 1, 1, 1 },
+					{ 1, 1, 0, 1 },
+					{ 0, 1, 1, 1 }
+			};
+			
+			int array[] = {};
+			int array2[] = {};
+			
+			int count = 0;
+			
+			for(int i = 0; i < 8; i++) {
+				
+				int x = p + X[i];
+				int y = q + Y[i];
+				
+				if(x == k.getIndexOne() && y == k.getIndexTwo()) {
+					System.out.println(true);
+				}
+			}
 			
 		}
 		
@@ -378,15 +383,12 @@ public class Main extends Application {
 				}
 			} else if((history.getImageString().equals(knight_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(knight_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				if(((knightConds[0] || knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
-					
-					handleKnightCheck(kingWhite);
+
 					handleKnightCheck(kingBlack);
 					
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);
 
-					handleKnightCheck(kingWhite);
-					handleKnightCheck(kingBlack);
 				}
 			} else if((history.getImageString().equals(bishop_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(bishop_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				

@@ -187,34 +187,24 @@ public class Main extends Application {
 			
 		}
 		private void handleKnightCheck(King k) {
-			int p = indexOne;
-			int q = indexTwo;
-			
-			int X[] = {-1, -2, 1, 2, 1, -2, -1, 2};
-			int Y[] = {-2, -1, 2, 1, -2, 1, 2, -1};
-			
-			int mat[][] = {
-					{ 1, 0, 1, 0 },
-					{ 0, 1, 1, 1 },
-					{ 1, 1, 0, 1 },
-					{ 0, 1, 1, 1 }
-			};
-			
-			int array[] = {};
-			int array2[] = {};
-			
-			int count = 0;
-			
-			for(int i = 0; i < 8; i++) {
+			if(cell[histIndOne][histIndTwo].getToken().getImageString().equals(knight_w) && k.getImageString().equals(king_b)) {
+				int p = indexOne;
+				int q = indexTwo;
 				
-				int x = p + X[i];
-				int y = q + Y[i];
+				int X[] = {-1, -2, 1, 2, 1, -2, -1, 2};
+				int Y[] = {-2, -1, 2, 1, -2, 1, 2, -1};
 				
-				if(x == k.getIndexOne() && y == k.getIndexTwo()) {
-					System.out.println(true);
+				for(int i = 0; i < 8; i++) {
+					
+					int x = p + X[i];
+					int y = q + Y[i];
+					
+					if(x == k.getIndexOne() && y == k.getIndexTwo()) {
+						k.setIsChecked(true);
+						k.setCheckedBy(knight_w);
+					}
 				}
 			}
-			
 		}
 		
 		public void handleSelection() throws FileNotFoundException {
@@ -449,6 +439,19 @@ public class Main extends Application {
 								}
 							}
 
+						} else if(kingBlack.getCheckedBy().equals(knight_w) || kingWhite.getCheckedBy().equals(knight_b)) {
+							if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
+								history.setIsValid(true);
+								cell[histIndOne][histIndTwo].setToken(null);
+								
+								if(kingBlack.getIsChecked()) {
+									kingBlack.setIsChecked(false);
+									kingBlack.setCheckedBy(null);
+								} else {
+									kingWhite.setIsChecked(false);
+									kingWhite.setCheckedBy(null);
+								}
+							}
 						}
 
 					} else {

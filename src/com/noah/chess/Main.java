@@ -187,21 +187,25 @@ public class Main extends Application {
 			
 		}
 		private void handleKnightCheck(King k) {
-			if(cell[histIndOne][histIndTwo].getToken().getImageString().equals(knight_w) && k.getImageString().equals(king_b)) {
-				int p = indexOne;
-				int q = indexTwo;
+
+			int p = indexOne;
+			int q = indexTwo;
 				
-				int X[] = {-1, -2, 1, 2, 1, -2, -1, 2};
-				int Y[] = {-2, -1, 2, 1, -2, 1, 2, -1};
+			int X[] = {-1, -2, 1, 2, 1, -2, -1, 2};
+			int Y[] = {-2, -1, 2, 1, -2, 1, 2, -1};
 				
-				for(int i = 0; i < 8; i++) {
+			for(int i = 0; i < 8; i++) {
 					
-					int x = p + X[i];
-					int y = q + Y[i];
+				int x = p + X[i];
+				int y = q + Y[i];
 					
-					if(x == k.getIndexOne() && y == k.getIndexTwo()) {
+				if(x == k.getIndexOne() && y == k.getIndexTwo()) {
+					if(cell[histIndOne][histIndTwo].getToken().getImageString().equals(knight_w) && k.getImageString().equals(king_b)) {
 						k.setIsChecked(true);
 						k.setCheckedBy(knight_w);
+					} else if(cell[histIndOne][histIndTwo].getToken().getImageString().equals(knight_b) && k.getImageString().equals(king_w)) {
+						k.setIsChecked(true);
+						k.setCheckedBy(knight_b);
 					}
 				}
 			}
@@ -375,6 +379,7 @@ public class Main extends Application {
 				if(((knightConds[0] || knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
 
 					handleKnightCheck(kingBlack);
+					handleKnightCheck(kingWhite);
 					
 					history.setIsValid(true);
 					cell[histIndOne][histIndTwo].setToken(null);

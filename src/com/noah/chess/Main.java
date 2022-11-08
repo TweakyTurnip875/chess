@@ -377,14 +377,15 @@ public class Main extends Application {
 				}
 			} else if((history.getImageString().equals(knight_w) && turn == 'W') || (history.getImageString().equals(knight_b) && turn == 'B')) {
 				if(((knightConds[0] || knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
-					if((cell[indexOne][indexTwo].getToken() != null) && cell[indexOne][indexTwo].getToken().getImageString().equals(kingWhite.getCheckedBy())) {
+					if((cell[indexOne][indexTwo].getToken() != null) && (cell[indexOne][indexTwo].getToken().getImageString().equals(kingWhite.getCheckedBy()) || cell[indexOne][indexTwo].getToken().getImageString().equals(kingBlack.getCheckedBy()))) {
 						
 						handleKnightCheck(kingBlack);
 						handleKnightCheck(kingWhite);
 						
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);
-					} else if(!kingWhite.getIsChecked()) {
+						
+					} else if(!kingWhite.getIsChecked() && !kingBlack.getIsChecked()) {
 						handleKnightCheck(kingBlack);
 						handleKnightCheck(kingWhite);
 						

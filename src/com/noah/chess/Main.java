@@ -211,9 +211,8 @@ public class Main extends Application {
 			}
 		}
 		
-		private void handlePawnCheck(ChessPiece p, King k) {
-			
-			if(p.getImageString().equals(pawn_w)) {
+		private void handlePawnCheckW(King k) {
+
 				//System.out.println(cell[indexOne + 1][indexTwo - 1].getToken() != null || cell[indexOne - 1][indexTwo - 1].getToken() != null);
 				if(cell[indexOne + 1][indexTwo - 1].getToken() != null) {
 					if(cell[indexOne + 1][indexTwo - 1].getToken().getImageString().equals(king_b)) {
@@ -227,8 +226,6 @@ public class Main extends Application {
 						k.setCheckedBy(pawn_w);
 					}
 				}
-
-			}
 		}
 		
 		public void handleSelection() throws FileNotFoundException {
@@ -310,7 +307,7 @@ public class Main extends Application {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1)) {
 						boolean checkValid = true;
 
-						handlePawnCheck(history, kingBlack);
+						handlePawnCheckW(kingBlack);
 						
 						if(cell[indexOne][5].getToken() != null) {
 							checkValid = false;
@@ -326,7 +323,7 @@ public class Main extends Application {
 						
 					}	
 				} else {
-					handlePawnCheck(history, kingBlack);
+					handlePawnCheckW(kingBlack);
 					if(indexOne == histIndOne && indexTwo == histIndTwo - 1 && cell[indexOne][indexTwo].getToken() == null) {
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);

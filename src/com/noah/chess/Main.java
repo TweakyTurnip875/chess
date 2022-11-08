@@ -211,6 +211,26 @@ public class Main extends Application {
 			}
 		}
 		
+		private void handlePawnCheck(ChessPiece p, King k) {
+			
+			if(p.getImageString().equals(pawn_w)) {
+				//System.out.println(cell[indexOne + 1][indexTwo - 1].getToken() != null || cell[indexOne - 1][indexTwo - 1].getToken() != null);
+				if(cell[indexOne + 1][indexTwo - 1].getToken() != null) {
+					if(cell[indexOne + 1][indexTwo - 1].getToken().getImageString().equals(king_b)) {
+						k.setIsChecked(true);
+						k.setCheckedBy(pawn_w);
+					}
+				}
+				if(cell[indexOne - 1][indexTwo - 1].getToken() != null) {
+					if(cell[indexOne - 1][indexTwo - 1].getToken().getImageString().equals(king_b)) {
+						k.setIsChecked(true);
+						k.setCheckedBy(pawn_w);
+					}
+				}
+
+			}
+		}
+		
 		public void handleSelection() throws FileNotFoundException {
 
 			if(token != null) {
@@ -290,6 +310,7 @@ public class Main extends Application {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1)) {
 						boolean checkValid = true;
 
+						handlePawnCheck(history, kingBlack);
 						
 						if(cell[indexOne][5].getToken() != null) {
 							checkValid = false;
@@ -305,11 +326,13 @@ public class Main extends Application {
 						
 					}	
 				} else {
+					handlePawnCheck(history, kingBlack);
 					if(indexOne == histIndOne && indexTwo == histIndTwo - 1 && cell[indexOne][indexTwo].getToken() == null) {
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
 				}
+				//pawn capture
 				if((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo == histIndTwo - 1) {
 					if(cell[indexOne][indexTwo].getToken() != null) {
 						history.setIsValid(true);
@@ -464,6 +487,11 @@ public class Main extends Application {
 									kingWhite.setIsChecked(false);
 									kingWhite.setCheckedBy(null);
 								}
+							}
+						} else if(kingBlack.getCheckedBy().equals(pawn_w)) {
+							if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
+								kingBlack.setIsChecked(false);
+								kingBlack.setCheckedBy(null);
 							}
 						}
 

@@ -303,9 +303,8 @@ public class Main extends Application {
 				}
 			}
 			
-			//if the piece to move is in the same column and is equal to its current space - 1
 			if(history.getImageString().equals(pawn_w) && turn == 'W' && kingWhite.getIsChecked() == false) {
-				//System.out.println(indexOne == histIndOne);
+
 				if(histIndTwo == 6) {
 					if(indexOne == histIndOne && (indexTwo == histIndTwo - 2 || indexTwo == histIndTwo - 1)) {
 						boolean checkValid = true;
@@ -396,7 +395,6 @@ public class Main extends Application {
 					handleCheckRook(kingWhite);
 					handleCheckRook(kingBlack);
 					
-					//System.out.println(kingBlack.getIsChecked() || kingWhite.getIsChecked());
 				}
 			} else if((history.getImageString().equals(knight_w) && turn == 'W') || (history.getImageString().equals(knight_b) && turn == 'B')) {
 				if(((knightConds[0] || knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
@@ -591,10 +589,10 @@ public class Main extends Application {
 							checkValid = true;
 						}
 						
-						history.setIsValid(checkValid); // allows piece to move if it meets the requirements
+						history.setIsValid(checkValid);
 						
 						if(checkValid) {
-							cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+							cell[histIndOne][histIndTwo].setToken(null);
 						}
 						
 					}

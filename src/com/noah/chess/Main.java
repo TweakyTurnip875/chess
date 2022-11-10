@@ -401,6 +401,7 @@ public class Main extends Application {
 			} else if((history.getImageString().equals(bishop_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(bishop_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				
 				handleBishopCheck(kingBlack);
+				handleBishopCheck(kingWhite);
 				
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
@@ -472,10 +473,15 @@ public class Main extends Application {
 									kingWhite.setCheckedBy(null);
 								}
 							}
-						} else if(kingBlack.getCheckedBy().equals(bishop_w)) {
+						} else if(kingBlack.getCheckedBy().equals(bishop_w) || kingWhite.getCheckedBy().equals(bishop_b)) {
 							if(!(indexOne == histIndOne + 1 && indexTwo == histIndTwo + 1) && !(indexOne == histIndOne - 1 && indexTwo == histIndTwo - 1) && !(indexOne == histIndOne - 1 && indexTwo == histIndTwo + 1) && !(indexOne == histIndOne + 1 && indexTwo == histIndTwo - 1)) {
-								kingBlack.setIsChecked(false);
-								kingBlack.setCheckedBy(null);
+								if(history.getImageString().equals(king_b)) {
+									kingBlack.setIsChecked(false);
+									kingBlack.setCheckedBy(null);
+								} else {
+									kingWhite.setIsChecked(false);
+									kingBlack.setCheckedBy(null);
+								}
 							}
 						}
 

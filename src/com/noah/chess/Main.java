@@ -211,7 +211,17 @@ public class Main extends Application {
 			}
 		}
 		
-		
+		private void handleBishopCheck(King k) {
+			if(k.getIndexOne() - indexOne == k.getIndexTwo() - indexTwo) {
+				k.setIsChecked(true);
+				k.setCheckedBy(cell[histIndOne][histIndTwo].getToken().getImageString());
+			} else if(-k.getIndexOne() + indexOne == k.getIndexTwo() - indexTwo) {
+				k.setIsChecked(true);
+				k.setCheckedBy(cell[histIndOne][histIndTwo].getToken().getImageString());
+			} else {
+				System.out.println(false);
+			}
+		}
 		public void handleSelection() throws FileNotFoundException {
 
 			if(token != null) {
@@ -390,7 +400,8 @@ public class Main extends Application {
 				}
 			} else if((history.getImageString().equals(bishop_w) && turn == 'W' && kingWhite.getIsChecked() == false) || (history.getImageString().equals(bishop_b) && turn == 'B' && kingBlack.getIsChecked() == false)) {
 				
-
+				handleBishopCheck(kingBlack);
+				
 				if((indexOne > histIndOne || indexOne < histIndOne) && (indexTwo > histIndTwo || indexTwo < histIndTwo)) {
 					if(Math.abs(indexOne - histIndOne) == Math.abs(indexTwo - histIndTwo)) {
 						int rOffset, cOffset;
@@ -461,8 +472,8 @@ public class Main extends Application {
 									kingWhite.setCheckedBy(null);
 								}
 							}
-						} else if(kingBlack.getCheckedBy().equals(pawn_w)) {
-							if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
+						} else if(kingBlack.getCheckedBy().equals(bishop_w)) {
+							if(!(indexOne == histIndOne + 1 && indexTwo == histIndTwo + 1) && !(indexOne == histIndOne - 1 && indexTwo == histIndTwo - 1) && !(indexOne == histIndOne - 1 && indexTwo == histIndTwo + 1) && !(indexOne == histIndOne + 1 && indexTwo == histIndTwo - 1)) {
 								kingBlack.setIsChecked(false);
 								kingBlack.setCheckedBy(null);
 							}

@@ -479,7 +479,8 @@ public class Main extends Application {
 							}
 						}
 
-					} else {
+					} 
+					if((history.getImageString().equals(king_b) && !kingBlack.getIsChecked()) || (history.getImageString().equals(king_w) && !kingWhite.getIsChecked())){
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);
 					}

@@ -233,15 +233,15 @@ public class Main extends Application {
 			if(token != null) {
 				if(turn == 'W') {
 					for(int i = 0; i < imagesWhite.length; i++) {
-						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesWhite[i])) {
-							history = cell[indexOne][indexTwo].getToken();
+						if(this.getToken().getImageString().equals(imagesWhite[i])) {
+							history = this.getToken();
 							break;
 						}
 					}
 				} else if(turn == 'B') {
 					for(int i = 0; i < imagesBlack.length; i++) {
-						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesBlack[i])) {
-							history = cell[indexOne][indexTwo].getToken();
+						if(this.getToken().getImageString().equals(imagesBlack[i])) {
+							history = this.getToken();
 							break;
 						}
 					}
@@ -317,20 +317,20 @@ public class Main extends Application {
 						history.setIsValid(checkValid); // allows piece to move if it meets the requirements
 						
 						if(checkValid) {
-							cell[histIndOne][histIndTwo].setToken(null); // set the original space to null
+							this.setToken(null); // set the original space to null
 						}
 						
 					}	
 				} else {
 					handlePawnCheckW(kingBlack);
-					if(indexOne == histIndOne && indexTwo == histIndTwo - 1 && cell[indexOne][indexTwo].getToken() == null) {
+					if(indexOne == histIndOne && indexTwo == histIndTwo - 1 && this.getToken() == null) {
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
 				}
 				//pawn capture
 				if((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo == histIndTwo - 1) {
-					if(cell[indexOne][indexTwo].getToken() != null) {
+					if(this.getToken() != null) {
 						history.setIsValid(true);
 						cell[histIndOne][histIndTwo].setToken(null);
 					}
@@ -391,7 +391,7 @@ public class Main extends Application {
 				}
 			} else if((history.getImageString().equals(knight_w) && turn == 'W') || (history.getImageString().equals(knight_b) && turn == 'B')) {
 				if(((knightConds[0] || knightConds[1]) && (knightConds[2] || knightConds[3])) || ((knightConds[4] || knightConds[5]) && (knightConds[6] || knightConds[7]))) {
-					if((cell[indexOne][indexTwo].getToken() != null) && (cell[indexOne][indexTwo].getToken().getImageString().equals(kingWhite.getCheckedBy()) || cell[indexOne][indexTwo].getToken().getImageString().equals(kingBlack.getCheckedBy()))) {
+					if((this.getToken() != null) && (this.getToken().getImageString().equals(kingWhite.getCheckedBy()) || this.getToken().getImageString().equals(kingBlack.getCheckedBy()))) {
 						
 						handleKnightCheck(kingBlack);
 						handleKnightCheck(kingWhite);
@@ -591,13 +591,13 @@ public class Main extends Application {
 						
 					}
 				} else {
-					if(indexOne == histIndOne && indexTwo == histIndTwo + 1 && cell[indexOne][indexTwo].getToken() == null) {
+					if(indexOne == histIndOne && indexTwo == histIndTwo + 1 && this.getToken() == null) {
 						history.setIsValid(true); 
 						cell[histIndOne][histIndTwo].setToken(null); 
 					}
 				}
 				if((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo == histIndTwo + 1) {
-					if(cell[indexOne][indexTwo].getToken() != null) {
+					if(this.getToken() != null) {
 						history.setIsValid(true); 
 						cell[histIndOne][histIndTwo].setToken(null); 
 					}
@@ -610,13 +610,13 @@ public class Main extends Application {
 				history.setIndexTwo(getIndexTwo());
 				
 				// sets the space to move tos token with the piece to move
-				cell[indexOne][indexTwo].setToken(history);
+				this.setToken(history);
 				
 				if(turn == 'W') {
 					
 					for(int i = 0; i < imagesBlack.length; i++) {
-						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesBlack[i])) {
-							cell[indexOne][indexTwo].setToken(history);
+						if(this.getToken().getImageString().equals(imagesBlack[i])) {
+							this.setToken(history);
 							
 							imagesBlack[i] = null;
 							
@@ -628,8 +628,8 @@ public class Main extends Application {
 					
 				} else if(turn == 'B') {
 					for(int i = 0; i < imagesWhite.length; i++) {
-						if(cell[indexOne][indexTwo].getToken().getImageString().equals(imagesWhite[i])) {
-							cell[indexOne][indexTwo].setToken(history);
+						if(this.getToken().getImageString().equals(imagesWhite[i])) {
+							this.setToken(history);
 							
 							imagesWhite[i] = null;
 						}

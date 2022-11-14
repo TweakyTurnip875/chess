@@ -86,9 +86,9 @@ public class Main extends Application {
 		cell[2][0].setToken(new Bishop(2, 0, bishop_b));
 		cell[5][0].setToken(new Bishop(5, 0, bishop_b));
 		
-		cell[3][0].setToken(new King(3, 0, king_b));
+		cell[4][0].setToken(new King(4, 0, king_b));
 		
-		cell[4][0].setToken(new Queen(4, 0, queen_b));
+		cell[3][0].setToken(new Queen(3, 0, queen_b));
 
 		
 		cell[0][7].setToken(new Rook(0, 7, rook_w));
@@ -100,9 +100,9 @@ public class Main extends Application {
 		cell[2][7].setToken(new Bishop(2, 7, bishop_w));
 		cell[5][7].setToken(new Bishop(5, 7, bishop_w));
 		
-		cell[3][7].setToken(new King(3, 7, king_w));
+		cell[4][7].setToken(new King(4, 7, king_w));
 		
-		cell[4][7].setToken(new Queen(4, 7, queen_w));
+		cell[3][7].setToken(new Queen(3, 7, queen_w));
 		
 		
 		

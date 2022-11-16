@@ -14,6 +14,7 @@ public class King implements ChessPiece {
 	private String checkedBy = "";
 	
 	private boolean isChecked = false;
+	private int checkIndOne, checkIndTwo;
 	
 	public King(int indexOne, int indexTwo, String token) {
 		this.indexOne = indexOne;
@@ -81,5 +82,27 @@ public class King implements ChessPiece {
 		if(isChecked) {
 			this.checkedBy = checkedBy;
 		}
+	}
+	public int getCheckIndOne() {
+		return checkIndOne;
+	}
+	public void setCheckIndOne(int checkIndOne) {
+		if(isChecked) {
+			this.checkIndOne = checkIndOne;
+		}
+	}
+	public int getCheckIndTwo() {
+		return checkIndTwo;
+	}
+	public void setCheckIndTwo(int checkIndTwo) {
+		if(isChecked) {
+			this.checkIndTwo = checkIndTwo;
+		} 
+	}
+	public void setCheckIndex(int checkIndOne, int checkIndTwo) {
+		if(isChecked) {
+			this.checkIndTwo = checkIndTwo;
+			this.checkIndOne = checkIndOne;
+		} 
 	}
 }

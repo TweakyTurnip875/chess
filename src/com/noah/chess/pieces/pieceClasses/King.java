@@ -100,9 +100,7 @@ public class King implements ChessPiece {
 		} 
 	}
 	public void setCheckIndex(int checkIndOne, int checkIndTwo) {
-		if(isChecked) {
 			this.checkIndTwo = checkIndTwo;
 			this.checkIndOne = checkIndOne;
-		} 
 	}
 }

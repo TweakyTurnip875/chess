@@ -149,6 +149,7 @@ public class Main extends Application {
 		private void handleRookCheck(King k) {
 			
 				if(indexOne == k.getIndexOne()) {
+
 					for(int i = indexTwo + 1; i < k.getIndexTwo() - 1; i++) {
 						if(cell[indexOne][i].getToken() == null) {
 							
@@ -165,10 +166,7 @@ public class Main extends Application {
 						}
 	
 					}
-				}
-				
-			
-				if(indexOne == k.getIndexOne()) {
+
 					for(int i = indexTwo - 1; i > k.getIndexTwo() + 1; i--) {
 						if(cell[indexOne][i].getToken() == null) {
 						
@@ -186,6 +184,14 @@ public class Main extends Application {
 					}
 				}
 				if(indexTwo == k.getIndexTwo()) {
+					if(indexOne + 1 == k.getIndexOne()) {
+						k.setIsChecked(true);
+						k.setCheckedBy(turn == 'B' ? rook_b : rook_w);
+						k.setCheckIndex(indexOne, indexTwo);
+					} else {
+						k.setIsChecked(false);
+						k.setCheckedBy(null);
+					}
 					for(int i = indexOne - 1; i > k.getIndexOne(); i--) {
 						if(cell[i][indexTwo].getToken() == null) {
 						
@@ -219,14 +225,7 @@ public class Main extends Application {
 						}
 	
 					}
-					if(indexOne + 1 == k.getIndexOne() || indexOne - 1 == k.getCheckIndOne() || indexTwo + 1 == k.getCheckIndTwo() || indexTwo - 1 == k.getCheckIndTwo()) {
-						k.setIsChecked(true);
-						k.setCheckedBy(turn == 'B' ? rook_b : rook_w);
-						k.setCheckIndex(indexOne, indexTwo);
-					} else {
-						k.setIsChecked(false);
-						k.setCheckedBy(null);
-					}
+
 				}
 			
 		}
@@ -490,12 +489,13 @@ public class Main extends Application {
 				}
 			} else if((history.getImageString().equals(king_w) && turn == 'W') || (history.getImageString().equals(king_b) && turn == 'B')) {
 				if(((indexOne == histIndOne + 1 || indexOne == histIndOne - 1) && indexTwo <= histIndTwo + 1) || ((indexTwo == histIndTwo + 1 || indexTwo == histIndTwo - 1) && indexOne <= histIndOne + 1)) {
+					System.out.println(kingBlack.getCheckedBy().equals(rook_w));
 					if(kingBlack.getIsChecked() || kingWhite.getIsChecked()) {
 						
-						if(kingWhite.getCheckedBy().equals(rook_b) || kingBlack.getCheckedBy().equals(rook_w)) {
+						if((kingWhite.getCheckedBy().equals(rook_b) || kingWhite.getCheckedBy().equals(queen_b)) || (kingBlack.getCheckedBy().equals(rook_w) || kingBlack.getCheckedBy().equals(queen_w))) {
 							
 							if(kingWhite.getIsChecked()) {
-								if((indexOne != kingWhite.getCheckIndOne() && indexOne != kingWhite.getCheckIndOne())) {
+								if((indexOne != kingWhite.getCheckIndOne() && indexTwo != kingWhite.getCheckIndTwo())) {
 									history.setIsValid(true);
 									cell[histIndOne][histIndTwo].setToken(null);
 	
@@ -504,7 +504,7 @@ public class Main extends Application {
 									//kingWhite.setCheckIndex((Integer)null, (Integer)null);
 	
 								}
-							} else if(kingBlack.getCheckedBy().equals(rook_w)) {
+							} else if(kingBlack.getIsChecked()) {
 								System.out.println(kingBlack.getCheckIndTwo());
 								if((indexOne != kingBlack.getCheckIndOne() && indexTwo != kingBlack.getCheckIndTwo())) {
 									
@@ -530,7 +530,7 @@ public class Main extends Application {
 									kingWhite.setCheckedBy(null);
 								}
 							}
-						} else if(kingBlack.getCheckedBy().equals(bishop_w) || kingWhite.getCheckedBy().equals(bishop_b)) {
+						} else if((kingBlack.getCheckedBy().equals(bishop_w) || kingBlack.getCheckedBy().equals(queen_w)) || (kingWhite.getCheckedBy().equals(bishop_b) || kingWhite.getCheckedBy().equals(queen_b))) {
 							if(!(indexOne == histIndOne + 1 && indexTwo == histIndTwo + 1) && !(indexOne == histIndOne - 1 && indexTwo == histIndTwo - 1) && !(indexOne == histIndOne - 1 && indexTwo == histIndTwo + 1) && !(indexOne == histIndOne + 1 && indexTwo == histIndTwo - 1)) {
 								if(history.getImageString().equals(king_b)) {
 									kingBlack.setIsChecked(false);
